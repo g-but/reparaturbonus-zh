@@ -1,0 +1,31 @@
+export const SHOP_CATEGORIES = {
+  ALL: 'ALL',
+  ELECTRONICS: 'ELECTRONICS',
+  CLOTHING: 'CLOTHING',
+  JEWELRY: 'JEWELRY',
+  WATCHES: 'WATCHES',
+  APPLIANCES: 'APPLIANCES',
+  FURNITURE: 'FURNITURE',
+  SHOES: 'SHOES',
+  BAGS: 'BAGS',
+  BIKES: 'BIKES',
+  CARS: 'CARS',
+  OTHER: 'OTHER'
+} as const
+
+export type ShopCategory = typeof SHOP_CATEGORIES[keyof typeof SHOP_CATEGORIES]
+
+export const CATEGORY_LABELS: Record<ShopCategory, string> = {
+  [SHOP_CATEGORIES.ALL]: 'Alle Kategorien',
+  [SHOP_CATEGORIES.ELECTRONICS]: 'Elektronik',
+  [SHOP_CATEGORIES.CLOTHING]: 'Kleidung',
+  [SHOP_CATEGORIES.JEWELRY]: 'Schmuck',
+  [SHOP_CATEGORIES.WATCHES]: 'Uhren',
+  [SHOP_CATEGORIES.APPLIANCES]: 'Haushaltsgeräte',
+  [SHOP_CATEGORIES.FURNITURE]: 'Möbel',
+  [SHOP_CATEGORIES.SHOES]: 'Schuhe',
+  [SHOP_CATEGORIES.BAGS]: 'Taschen',
+  [SHOP_CATEGORIES.BIKES]: 'Fahrräder',
+  [SHOP_CATEGORIES.CARS]: 'Autos',
+  [SHOP_CATEGORIES.OTHER]: 'Sonstiges'
+}
