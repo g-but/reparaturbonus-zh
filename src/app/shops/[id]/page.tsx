@@ -324,7 +324,7 @@ export default function ShopProfilePage() {
     )
   }
 
-  const averageRating = shop.reviews?.reduce((acc, review) => acc + review.rating, 0) / (shop.reviews?.length || 1) || 4.8
+  const averageRating = shop?.reviews?.reduce((acc, review) => acc + review.rating, 0) / (shop.reviews?.length || 1) || 4.8
 
   return (
     <div className="min-h-screen bg-gray-50">
