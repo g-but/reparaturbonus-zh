@@ -5,9 +5,10 @@ import { join } from 'path'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
+    const resolvedParams = await params
     const formData = await request.formData()
     const residenceProof = formData.get('residenceProof') as File
 
@@ -21,7 +22,7 @@ export async function POST(
     // Verify bonus code exists and is valid
     const bonusCode = await prisma.bonusCode.findUnique({
       where: {
-        code: params.code.toUpperCase(),
+        code: resolvedParams.code.toUpperCase(),
       },
       include: {
         user: {
@@ -72,7 +73,7 @@ export async function POST(
     // Mark bonus code as used and store file path
     const updatedBonusCode = await prisma.bonusCode.update({
       where: {
-        code: params.code.toUpperCase(),
+        code: resolvedParams.code.toUpperCase(),
       },
       data: {
         isUsed: true,

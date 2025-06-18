@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { MagnifyingGlassIcon, MapPinIcon, PhoneIcon, GlobeAltIcon, LightBulbIcon, BanknotesIcon, SparklesIcon, FunnelIcon, StarIcon, ClockIcon } from '@heroicons/react/24/outline'
-import PageHeader from '@/components/ui/PageHeader'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 import { SHOP_CATEGORIES, CATEGORY_LABELS, type ShopCategory } from '@/lib/constants/categories'
 import Link from 'next/link'
@@ -85,7 +84,7 @@ const getRepairCapabilities = (item: string, category?: string) => {
   }
   
   // Extract keywords from the item
-  let keywords = []
+  const keywords = []
   
   // Add direct item keywords
   for (const [key, values] of Object.entries(deviceMappings)) {
@@ -139,8 +138,14 @@ export default function ShopsPage() {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('ALL')
-  const [aiSuggestions, setAiSuggestions] = useState<any>(null)
-  const [loadingSuggestions, setLoadingSuggestions] = useState(false)
+  const [aiSuggestions, setAiSuggestions] = useState<{
+    likelyIssues: string[];
+    possibleSolutions: string[];
+    estimatedRepairCost: { min: number; max: number };
+    estimatedNewCost: { min: number; max: number };
+    savingsPercentage: number;
+    environmentalImpact: { co2Saved: string; wasteAvoided: string };
+  } | null>(null)
   const [showFilters, setShowFilters] = useState(false)
   
   // Get URL parameters for repair submission
@@ -179,7 +184,6 @@ export default function ShopsPage() {
   }, [])
 
   const fetchAiSuggestions = async (category: string, item: string, problem?: string) => {
-    setLoadingSuggestions(true)
     try {
       const response = await fetch('/api/ai-suggestions', {
         method: 'POST',
@@ -195,8 +199,6 @@ export default function ShopsPage() {
       }
     } catch (error) {
       console.error('Error fetching AI suggestions:', error)
-    } finally {
-      setLoadingSuggestions(false)
     }
   }
 
@@ -455,7 +457,7 @@ export default function ShopsPage() {
               </h2>
               {repairDetails.search && (
                 <p className="text-gray-600 mt-1">
-                  für "<span className="font-medium text-indigo-600">{repairDetails.search}</span>"
+                  für &quot;<span className="font-medium text-indigo-600">{repairDetails.search}</span>&quot;
                 </p>
               )}
             </div>
@@ -470,62 +472,68 @@ export default function ShopsPage() {
           {/* Shops Grid */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredShops.map((shop) => (
-              <div key={shop.id} className="bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-200 overflow-hidden group">
+              <div key={shop.id} className="bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-200 overflow-hidden group flex flex-col h-full">
                 {/* Shop Header */}
-                <div className="p-6 pb-4">
+                <div className="p-6 pb-4 flex-1">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center space-x-3">
                       <div className="text-2xl">{getCategoryIcon(shop.category)}</div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
-                          {shop.name}
-                        </h3>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                      <div className="flex-1">
+                        <Link href={`/shops/${shop.id}`} className="block">
+                          <h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
+                            {shop.name}
+                          </h3>
+                        </Link>
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 mt-1">
                           {getCategoryDisplayName(shop.category)}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  {shop.description && (
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{shop.description}</p>
-                  )}
+                  <div className="space-y-3 mb-4 min-h-[120px] flex flex-col">
+                    {shop.description && (
+                      <p className="text-gray-600 text-sm line-clamp-3 flex-1">{shop.description}</p>
+                    )}
 
-                  {/* Contact Info */}
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-start text-sm text-gray-600">
-                      <MapPinIcon className="h-4 w-4 mt-0.5 mr-2 flex-shrink-0 text-gray-400" />
-                      <span>{shop.address}, {shop.postalCode} {shop.city}</span>
+                    {/* Contact Info */}
+                    <div className="space-y-2">
+                      <div className="flex items-start text-sm text-gray-600">
+                        <MapPinIcon className="h-4 w-4 mt-0.5 mr-2 flex-shrink-0 text-gray-400" />
+                        <span className="line-clamp-1">{shop.address}, {shop.postalCode} {shop.city}</span>
+                      </div>
+
+                      <div className="flex items-center justify-between text-sm">
+                        {shop.phone && (
+                          <div className="flex items-center text-gray-600">
+                            <PhoneIcon className="h-4 w-4 mr-2 flex-shrink-0 text-gray-400" />
+                            <a href={`tel:${shop.phone}`} className="hover:text-indigo-600 transition-colors">
+                              {shop.phone}
+                            </a>
+                          </div>
+                        )}
+
+                        {shop.website && (
+                          <div className="flex items-center text-gray-600">
+                            <GlobeAltIcon className="h-4 w-4 mr-2 flex-shrink-0 text-gray-400" />
+                            <a 
+                              href={shop.website} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="hover:text-indigo-600 transition-colors text-xs"
+                            >
+                              Website
+                            </a>
+                          </div>
+                        )}
+                      </div>
                     </div>
-
-                    {shop.phone && (
-                      <div className="flex items-center text-sm text-gray-600">
-                        <PhoneIcon className="h-4 w-4 mr-2 flex-shrink-0 text-gray-400" />
-                        <a href={`tel:${shop.phone}`} className="hover:text-indigo-600 transition-colors">
-                          {shop.phone}
-                        </a>
-                      </div>
-                    )}
-
-                    {shop.website && (
-                      <div className="flex items-center text-sm text-gray-600">
-                        <GlobeAltIcon className="h-4 w-4 mr-2 flex-shrink-0 text-gray-400" />
-                        <a 
-                          href={shop.website} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="hover:text-indigo-600 transition-colors"
-                        >
-                          Website besuchen
-                        </a>
-                      </div>
-                    )}
                   </div>
                 </div>
 
                 {/* Shop Footer */}
-                <div className="bg-gray-50 px-6 py-4 border-t border-gray-100">
-                  <div className="flex items-center justify-between">
+                <div className="bg-gray-50 px-6 py-4 border-t border-gray-100 mt-auto">
+                  <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-4 text-xs text-gray-500">
                       <div className="flex items-center">
                         <StarIcon className="h-4 w-4 text-yellow-400 mr-1" />
@@ -541,9 +549,11 @@ export default function ShopsPage() {
                     </div>
                   </div>
                   
-                  <button className="w-full mt-3 bg-indigo-600 text-white px-4 py-3 rounded-xl hover:bg-indigo-700 transition-colors font-medium text-sm">
-                    {repairDetails.search ? `${repairDetails.search} reparieren lassen` : 'Reparatur anfragen'}
-                  </button>
+                  <Link href={`/shops/${shop.id}`} className="block w-full">
+                    <button className="w-full bg-indigo-600 text-white px-4 py-3 rounded-xl hover:bg-indigo-700 transition-colors font-medium text-sm">
+                      {repairDetails.search ? `${repairDetails.search} reparieren lassen` : 'Profil ansehen'}
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -555,7 +565,7 @@ export default function ShopsPage() {
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Keine Werkstätten gefunden</h3>
               <p className="text-gray-600 mb-6 max-w-md mx-auto">
                 {repairDetails.search 
-                  ? `Keine Werkstätten für "${repairDetails.search}" gefunden. Versuchen Sie eine andere Suche.`
+                  ? `Keine Werkstätten für &quot;${repairDetails.search}&quot; gefunden. Versuchen Sie eine andere Suche.`
                   : "Versuchen Sie, Ihre Suchbegriffe oder Kategoriefilter anzupassen."
                 }
               </p>

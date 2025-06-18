@@ -4,6 +4,7 @@ import "./globals.css";
 import SessionProviderWrapper from "@/components/providers/session-provider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import AiChat from "@/components/ui/AiChat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Reparaturbonus Zürich",
-  description: "Reparaturbonus-Plattform für Zürich - Förderung nachhaltiger Reparaturkultur",
+  description: "Finden Sie die beste Reparaturwerkstatt in Zürich und erhalten Sie bis zu CHF 100 Bonus.",
 };
 
 export default function RootLayout({
@@ -31,11 +32,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <SessionProviderWrapper>
-          <Header />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1 pt-20">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <AiChat />
         </SessionProviderWrapper>
       </body>
     </html>

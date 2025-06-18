@@ -5,9 +5,10 @@ import { authOptions } from '@/lib/auth'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
+    const resolvedParams = await params
     const { searchParams } = new URL(request.url)
     const verify = searchParams.get('verify') === 'true'
 
@@ -15,7 +16,7 @@ export async function GET(
     if (verify) {
       const bonusCode = await prisma.bonusCode.findUnique({
         where: {
-          code: params.code.toUpperCase(),
+          code: resolvedParams.code.toUpperCase(),
         },
         include: {
           user: {
@@ -54,7 +55,7 @@ export async function GET(
 
     const bonusCode = await prisma.bonusCode.findUnique({
       where: {
-        code: params.code,
+        code: resolvedParams.code,
       },
       include: {
         user: {
@@ -89,8 +90,8 @@ export async function GET(
     }
 
     // Check if user is authorized to view this bonus code
-    const userRole = (session.user as any).role
-    const isOwner = bonusCode.userId === (session.user as any).id
+    const userRole = (session.user as { role?: string; id?: string }).role
+    const isOwner = bonusCode.userId === (session.user as { id?: string }).id
     const isAdmin = userRole === 'ADMIN' || userRole === 'SUPER_ADMIN'
 
     if (!isOwner && !isAdmin) {
@@ -112,9 +113,10 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
+    const resolvedParams = await params
     const session = await getServerSession(authOptions)
     
     if (!session?.user) {
@@ -129,7 +131,7 @@ export async function PATCH(
 
     const bonusCode = await prisma.bonusCode.findUnique({
       where: {
-        code: params.code,
+        code: resolvedParams.code,
       },
     })
 
@@ -141,8 +143,8 @@ export async function PATCH(
     }
 
     // Check authorization
-    const userRole = (session.user as any).role
-    const isOwner = bonusCode.userId === (session.user as any).id
+    const userRole = (session.user as { role?: string; id?: string }).role
+    const isOwner = bonusCode.userId === (session.user as { id?: string }).id
     const isAdmin = userRole === 'ADMIN' || userRole === 'SUPER_ADMIN'
 
     if (!isOwner && !isAdmin) {
@@ -169,7 +171,7 @@ export async function PATCH(
 
       const updatedBonusCode = await prisma.bonusCode.update({
         where: {
-          code: params.code,
+          code: resolvedParams.code,
         },
         data: {
           isUsed: true,

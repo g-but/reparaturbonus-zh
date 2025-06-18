@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { GiftIcon, CalendarIcon, ShoppingBagIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
+import { GiftIcon, CalendarIcon, ShoppingBagIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
 import PageHeader from '@/components/ui/PageHeader'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 import { ROUTES } from '@/lib/constants/routes'

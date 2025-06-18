@@ -4,7 +4,7 @@ import { prisma } from '@/lib/db'
 import { authOptions } from '@/lib/auth'
 import { generateBonusCode, calculateBonusAmount, getBonusExpiryDate } from '@/lib/bonus-codes'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions)
     
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
     const bonusCodes = await prisma.bonusCode.findMany({
       where: {
-        userId: (session.user as any).id,
+        userId: (session.user as { id?: string }).id!,
       },
       include: {
         shop: {
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const bonusAmount = calculateBonusAmount(repairCost)
+    const bonusAmount = calculateBonusAmount()
     const expiryDate = getBonusExpiryDate()
 
     // Create order if not provided
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
         data: {
           total: repairCost,
           description: description || 'Repair service',
-          userId: (session.user as any).id,
+          userId: (session.user as { id?: string }).id!,
           shopId: shopId,
           status: 'COMPLETED',
         },
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
         code: bonusCode,
         amount: bonusAmount,
         expiresAt: expiryDate,
-        userId: (session.user as any).id,
+        userId: (session.user as { id?: string }).id!,
         shopId: shopId,
         orderId: orderRecord?.id,
       },

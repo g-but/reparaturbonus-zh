@@ -20,7 +20,7 @@ export default function AdminAuthGuard({ children }: AdminAuthGuardProps) {
       return
     }
 
-    const userRole = (session.user as any)?.role
+    const userRole = (session.user as { role?: string })?.role
     if (userRole !== 'ADMIN' && userRole !== 'SUPER_ADMIN') {
       router.push('/dashboard')
       return
@@ -42,7 +42,7 @@ export default function AdminAuthGuard({ children }: AdminAuthGuardProps) {
     return null
   }
 
-  const userRole = (session.user as any)?.role
+  const userRole = (session.user as { role?: string })?.role
   if (userRole !== 'ADMIN' && userRole !== 'SUPER_ADMIN') {
     return null
   }

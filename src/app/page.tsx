@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { MagnifyingGlassIcon, ShoppingBagIcon, GiftIcon, CameraIcon, WrenchScrewdriverIcon, HeartIcon, SparklesIcon, ArrowRightIcon, CheckCircleIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, GiftIcon, CameraIcon, WrenchScrewdriverIcon, SparklesIcon, ArrowRightIcon, CheckCircleIcon, CurrencyDollarIcon, BuildingStorefrontIcon } from '@heroicons/react/24/outline'
 import { ROUTES } from '@/lib/constants/routes'
 
 const REPAIR_CATEGORIES = [
@@ -19,11 +18,11 @@ const REPAIR_CATEGORIES = [
 ]
 
 export default function Home() {
-  const { data: session } = useSession()
   const [selectedCategory, setSelectedCategory] = useState('')
   const [itemDescription, setItemDescription] = useState('')
   const [problemDescription, setProblemDescription] = useState('')
   const [step, setStep] = useState(0) // 0 = hero, 1 = categories, 2 = details
+  const [showWorkshopInfo, setShowWorkshopInfo] = useState(false)
 
   const handleGetStarted = () => {
     setStep(1)
@@ -50,7 +49,7 @@ export default function Home() {
         <>
           {/* Main Hero */}
           <section className="relative overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24">
               <div className="text-center">
                 {/* Badge */}
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 text-sm font-medium mb-8">
@@ -60,7 +59,7 @@ export default function Home() {
 
                 {/* Main Headline */}
                 <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                  <span className="text-indigo-600">Reparieren</span> statt
+                  <span className="text-indigo-600">&quot;Reparieren&quot;</span> statt
                   <span className="block">wegwerfen</span>
                 </h1>
 
@@ -300,7 +299,7 @@ export default function Home() {
       {step === 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">So einfach funktioniert's</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">So einfach funktioniert&apos;s</h2>
             <p className="text-xl text-gray-600">In 3 Schritten zu Ihrer Reparatur mit Bonus</p>
           </div>
 
@@ -334,6 +333,16 @@ export default function Home() {
                 Nach der Reparatur erhalten Sie automatisch Ihren Bonus-Code
               </p>
             </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href={ROUTES.HOW_IT_WORKS}
+              className="inline-flex items-center text-indigo-600 hover:text-indigo-500 font-medium transition-colors"
+            >
+              Detaillierte Anleitung ansehen
+              <ArrowRightIcon className="h-4 w-4 ml-2" />
+            </Link>
           </div>
         </section>
       )}
@@ -378,6 +387,221 @@ export default function Home() {
                 <p className="text-gray-600">
                   Weniger Elektroschrott und Müll für eine saubere Zukunft
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Workshop Recruitment Section - Only show on hero */}
+      {step === 0 && (
+        <section className="bg-slate-900">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="text-4xl font-bold text-white mb-6">
+                  Sind Sie eine Reparaturwerkstatt?
+                </h2>
+                <p className="text-xl text-slate-300 mb-8 leading-relaxed">
+                  Werden Sie Teil des Reparatur-Netzwerks und helfen Sie dabei, 
+                  Zürich nachhaltiger zu machen. Erreichen Sie neue Kunden und 
+                  profitieren Sie von unserem Bonus-System.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                  <div className="text-center">
+                    <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl">🔧</span>
+                    </div>
+                    <h3 className="font-semibold text-white mb-2">Neue Kunden</h3>
+                    <p className="text-sm text-slate-300">Erreichen Sie Kunden in ganz Zürich</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl">💰</span>
+                    </div>
+                    <h3 className="font-semibold text-white mb-2">Mehr Umsatz</h3>
+                    <p className="text-sm text-slate-300">Profitieren Sie vom Bonus-System</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl">🌟</span>
+                    </div>
+                    <h3 className="font-semibold text-white mb-2">Kostenlos</h3>
+                    <p className="text-sm text-slate-300">Keine Anmeldegebühren oder Provisionen</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/shop-onboarding"
+                    className="inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl group"
+                  >
+                    <BuildingStorefrontIcon className="h-6 w-6 mr-3" />
+                    Jetzt kostenlos anmelden
+                    <ArrowRightIcon className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <button 
+                    onClick={() => setShowWorkshopInfo(!showWorkshopInfo)}
+                    className="inline-flex items-center justify-center border-2 border-slate-400 text-slate-300 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-slate-800 hover:border-slate-300 transition-all duration-200"
+                  >
+                    <WrenchScrewdriverIcon className="h-6 w-6 mr-3" />
+                    {showWorkshopInfo ? 'Weniger anzeigen' : 'Mehr erfahren'}
+                  </button>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+                  <h3 className="text-2xl font-semibold text-white mb-8">Schnelle Anmeldung</h3>
+                  <div className="space-y-6">
+                    <div className="flex items-start">
+                      <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <span className="text-white font-bold text-sm">1</span>
+                      </div>
+                      <div>
+                        <h4 className="text-white font-medium mb-1">Grunddaten eingeben</h4>
+                        <p className="text-slate-300 text-sm">Nur 3 Minuten für Name, Kategorie und Kontakt</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <span className="text-white font-bold text-sm">2</span>
+                      </div>
+                      <div>
+                        <h4 className="text-white font-medium mb-1">Services auswählen</h4>
+                        <p className="text-slate-300 text-sm">Spezialisierungen und Dienstleistungen angeben</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <span className="text-white font-bold text-sm">3</span>
+                      </div>
+                      <div>
+                        <h4 className="text-white font-medium mb-1">Prüfung & Freischaltung</h4>
+                        <p className="text-slate-300 text-sm">Qualitätsprüfung dauert 2-3 Werktage</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <CheckCircleIcon className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="text-white font-medium mb-1">Kunden erhalten</h4>
+                        <p className="text-slate-300 text-sm">Sofort sichtbar für Reparatur-Suchende</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-8 p-4 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 rounded-xl border border-amber-400/30">
+                    <p className="text-amber-100 text-sm font-medium flex items-start">
+                      <span className="text-lg mr-2">💡</span>
+                      <span><strong>&quot;Frühanmelder-Vorteil:&quot;</strong> Die ersten 50 Werkstätten erhalten bevorzugten Support und extra Sichtbarkeit!</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Expandable Workshop Information */}
+      {step === 0 && showWorkshopInfo && (
+        <section className="bg-gradient-to-b from-slate-900 to-slate-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+              <div className="grid md:grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-2xl font-semibold text-white mb-6">Was bietet das Reparatur-Netzwerk?</h3>
+                  <div className="space-y-6">
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
+                        <span className="text-xl">🎯</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-2">Zielgruppe erreichen</h4>
+                        <p className="text-slate-300">Kunden, die bewusst reparieren statt neu kaufen möchten</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mr-4">
+                        <span className="text-xl">💰</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-2">CHF 100 Bonus-System</h4>
+                        <p className="text-slate-300">Kunden erhalten Bonus für Reparaturen - mehr Motivation zu reparieren</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center mr-4">
+                        <span className="text-xl">📱</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-2">Moderne Plattform</h4>
+                        <p className="text-slate-300">Einfache Online-Terminbuchung und Kundenkommunikation</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-2xl font-semibold text-white mb-6">Voraussetzungen</h3>
+                  <div className="space-y-6">
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-4 mt-1">
+                        <CheckCircleIcon className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-2">Gewerbeberechtigung</h4>
+                        <p className="text-slate-300">Gültige Gewerbeanmeldung oder Handwerksberechtigung</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-4 mt-1">
+                        <CheckCircleIcon className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-2">Versicherung</h4>
+                        <p className="text-slate-300">Betriebshaftpflichtversicherung empfohlen</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-4 mt-1">
+                        <CheckCircleIcon className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-2">Standort Zürich</h4>
+                        <p className="text-slate-300">Werkstatt oder Service im Raum Zürich</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-4 mt-1">
+                        <CheckCircleIcon className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-2">Qualitätsstandards</h4>
+                        <p className="text-slate-300">Bereitschaft zu fairen Preisen und hoher Servicequalität</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-12 pt-8 border-t border-white/20">
+                <div className="text-center">
+                  <h3 className="text-2xl font-semibold text-white mb-4">Bereit durchzustarten?</h3>
+                  <p className="text-slate-300 mb-8 text-lg">Die Anmeldung dauert nur wenige Minuten und ist komplett kostenlos.</p>
+                  <Link
+                    href="/shop-onboarding"
+                    className="inline-flex items-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  >
+                    <BuildingStorefrontIcon className="h-6 w-6 mr-3" />
+                    Jetzt kostenlos anmelden
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

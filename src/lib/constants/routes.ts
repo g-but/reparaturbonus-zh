@@ -1,6 +1,7 @@
 export const ROUTES = {
   HOME: '/',
   SHOPS: '/shops',
+  HOW_IT_WORKS: '/how-it-works',
   DASHBOARD: '/dashboard',
   ADMIN: '/admin',
   VERIFY: '/verify',
@@ -18,6 +19,7 @@ export const ROUTES = {
 export const PUBLIC_ROUTES = [
   ROUTES.HOME,
   ROUTES.SHOPS,
+  ROUTES.HOW_IT_WORKS,
   ROUTES.VERIFY,
   ROUTES.AUTH.SIGNIN,
   ROUTES.AUTH.SIGNUP,

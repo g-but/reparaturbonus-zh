@@ -10,7 +10,7 @@ export function generateBonusCode(): string {
   return result
 }
 
-export function calculateBonusAmount(repairCost: number): number {
+export function calculateBonusAmount(): number {
   // Fixed bonus amount: CHF 100 reserved for one month
   return 100
 }

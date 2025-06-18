@@ -53,7 +53,7 @@ export default function VerifyPage() {
       } else {
         setError('Fehler beim Überprüfen des Codes')
       }
-    } catch (err) {
+    } catch {
       setError('Netzwerkfehler beim Überprüfen des Codes')
     } finally {
       setLoading(false)
@@ -83,7 +83,7 @@ export default function VerifyPage() {
       } else {
         setError('Fehler beim Einlösen des Codes')
       }
-    } catch (err) {
+    } catch {
       setError('Netzwerkfehler beim Einlösen des Codes')
     } finally {
       setLoading(false)

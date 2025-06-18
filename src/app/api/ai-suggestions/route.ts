@@ -13,7 +13,7 @@ interface RepairSuggestion {
   }
 }
 
-const generateSuggestions = (category: string, item: string, problem?: string): RepairSuggestion => {
+const generateSuggestions = (category: string): RepairSuggestion => {
   // Mock data based on category - in production, this would use AI
   const suggestions: Record<string, RepairSuggestion> = {
     electronics: {
@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const suggestion = generateSuggestions(category, item, problem)
+    const suggestion = generateSuggestions(category)
 
     return NextResponse.json({
       success: true,

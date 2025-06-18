@@ -112,7 +112,7 @@ export default function AdminDashboard() {
                 <p className="mt-1 text-gray-600">
                   Willkommen zurück, {session?.user?.name}! 
                   <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                    {(session?.user as any)?.role}
+                    {(session?.user as { role?: string })?.role}
                   </span>
                 </p>
               </div>

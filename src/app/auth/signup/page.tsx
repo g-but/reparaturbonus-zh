@@ -52,7 +52,7 @@ export default function SignUp() {
         const data = await res.json()
         setError(data.message || 'Ein Fehler ist aufgetreten')
       }
-    } catch (error) {
+    } catch {
       setError('Ein Fehler ist bei der Registrierung aufgetreten')
     } finally {
       setLoading(false)
