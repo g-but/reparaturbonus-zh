@@ -54,19 +54,19 @@ export default function Home() {
                 {/* Badge */}
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 text-sm font-medium mb-8">
                   <GiftIcon className="h-4 w-4 mr-2" />
-                  CHF 100 Bonus für jede Reparatur
+                  CHF 100 Reparaturbonus der Stadt
                 </div>
 
                 {/* Main Headline */}
                 <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                  <span className="text-indigo-600">&quot;Reparieren&quot;</span> statt
+                  <span className="text-indigo-600">Reparieren</span> statt
                   <span className="block">wegwerfen</span>
                 </h1>
 
                 {/* Subtitle */}
                 <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
                   Finden Sie die beste Werkstatt in Zürich, sparen Sie bis zu 70% gegenüber Neukauf 
-                  und erhalten Sie CHF 100 Bonus für jede Reparatur.
+                  und nutzen Sie CHF 100 Reparaturbonus der Stadt.
                 </p>
 
                 {/* Value Props */}
@@ -103,7 +103,7 @@ export default function Home() {
                 </div>
 
                 <p className="text-sm text-gray-500 mt-4">
-                  Kostenlos • Keine Anmeldung erforderlich • CHF 100 Bonus garantiert
+                  Kostenlos • Keine Anmeldung erforderlich • CHF 100 Reparaturbonus garantiert
                 </p>
               </div>
             </div>
@@ -130,7 +130,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-purple-600">CHF 100</div>
-                  <div className="text-sm text-gray-600">Bonus garantiert</div>
+                  <div className="text-sm text-gray-600">Reparaturbonus</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-blue-600">24h</div>
@@ -328,9 +328,9 @@ export default function Home() {
               <div className="mx-auto w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-2xl font-bold text-yellow-600">3</span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">CHF 100 Bonus erhalten</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">CHF 100 Reparaturbonus</h3>
               <p className="text-gray-600">
-                Nach der Reparatur erhalten Sie automatisch Ihren Bonus-Code
+                Nach der Reparatur wird CHF 100 von der Rechnung abgezogen
               </p>
             </div>
           </div>

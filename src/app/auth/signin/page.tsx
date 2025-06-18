@@ -44,17 +44,71 @@ export default function SignIn() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              Willkommen zurück
-            </h2>
-            <p className="text-gray-600">
-              Melden Sie sich bei Ihrem Konto an
-            </p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Marketing Content */}
+          <div className="order-2 lg:order-1">
+            <div className="max-w-lg">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                Willkommen zurück!
+              </h1>
+              <p className="text-xl text-gray-600 mb-8">
+                Verwalten Sie Ihren Reparaturbonus und entdecken Sie neue Reparaturmöglichkeiten.
+              </p>
+              
+              <div className="space-y-6 mb-8">
+                <div className="flex items-start">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-blue-600 text-xl">📱</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Verwalten Sie Ihre Reparaturen</h3>
+                    <p className="text-gray-600 text-sm">Behalten Sie den Überblick über alle Ihre Reparaturanträge und Bonuszahlungen.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-green-600 text-xl">🔧</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Neue Reparaturshops entdecken</h3>
+                    <p className="text-gray-600 text-sm">Finden Sie qualifizierte Reparaturshops in Ihrer Nähe und lesen Sie Bewertungen.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-purple-600 text-xl">💰</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Sparen Sie bis zu 200 CHF</h3>
+                    <p className="text-gray-600 text-sm">Nutzen Sie Ihren jährlichen Reparaturbonus optimal aus.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-lg p-6">
+                <h3 className="font-semibold text-gray-900 mb-2">🌱 Gut für die Umwelt</h3>
+                <p className="text-gray-700 text-sm">
+                  Jede Reparatur hilft dabei, Elektronikschrott zu vermeiden und wertvolle Ressourcen zu schonen.
+                </p>
+              </div>
+            </div>
           </div>
+
+          {/* Sign In Form */}
+          <div className="order-1 lg:order-2">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  Anmelden
+                </h2>
+                <p className="text-gray-600">
+                  Melden Sie sich bei Ihrem Konto an
+                </p>
+              </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
@@ -137,16 +191,18 @@ export default function SignIn() {
               </Link>
             </p>
           </div>
-        </div>
+            </div>
 
-        {/* Return to homepage link */}
-        <div className="text-center mt-6">
-          <Link 
-            href="/" 
-            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
-          >
-            ← Zurück zur Startseite
-          </Link>
+            {/* Return to homepage link */}
+            <div className="text-center mt-6">
+              <Link 
+                href="/" 
+                className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                ← Zurück zur Startseite
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
