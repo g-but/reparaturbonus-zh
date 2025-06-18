@@ -25,7 +25,7 @@ export const CATEGORY_LABELS: Record<ShopCategory, string> = {
   [SHOP_CATEGORIES.FURNITURE]: 'Möbel',
   [SHOP_CATEGORIES.SHOES]: 'Schuhe',
   [SHOP_CATEGORIES.BAGS]: 'Taschen',
-  [SHOP_CATEGORIES.BIKES]: 'Fahrräder',
+  [SHOP_CATEGORIES.BIKES]: 'Velos',
   [SHOP_CATEGORIES.CARS]: 'Autos',
   [SHOP_CATEGORIES.OTHER]: 'Sonstiges'
 }

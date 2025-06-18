@@ -71,10 +71,10 @@ export default function SignUp() {
   }
 
   const benefits = [
-    'Bis zu 200 CHF Reparaturbonus pro Jahr',
-    'Zugang zu qualifizierten Reparaturshops',
+    'CHF 100 Reparaturbonus pro Voucher',
+    'Zugang zu qualifizierten Reparaturbetrieben',
     'Einfache Online-Verwaltung',
-    'Direktabzug bei der Rechnung'
+    'Direktabzug von der Rechnung'
   ]
 
   return (
@@ -88,7 +88,7 @@ export default function SignUp() {
                 Werden Sie Teil der Reparatur-Revolution
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Sparen Sie Geld beim Reparieren und helfen Sie dabei, unsere Umwelt zu schützen.
+                Nutzen Sie CHF 100 für Reparaturen und helfen Sie dabei, unsere Umwelt zu schützen.
               </p>
               
               <div className="space-y-4 mb-8">
@@ -103,7 +103,7 @@ export default function SignUp() {
               <div className="bg-gradient-to-r from-blue-100 to-green-100 rounded-lg p-6">
                 <h3 className="font-semibold text-gray-900 mb-2">💡 Wussten Sie schon?</h3>
                 <p className="text-gray-700 text-sm">
-                  Der Kanton Zürich fördert Reparaturen mit bis zu 50% der Kosten, um die Kreislaufwirtschaft zu stärken und Abfall zu reduzieren.
+                  Die Stadt Zürich fördert Reparaturen mit CHF 100 pro Voucher, um die Kreislaufwirtschaft zu stärken und Abfall zu reduzieren.
                 </p>
               </div>
             </div>

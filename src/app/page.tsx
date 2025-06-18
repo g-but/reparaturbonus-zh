@@ -11,7 +11,7 @@ const REPAIR_CATEGORIES = [
   { id: 'shoes', label: 'Schuhe', icon: '👟', examples: ['Sneaker', 'Stiefel', 'Sandalen', 'Absätze'] },
   { id: 'watches', label: 'Uhren', icon: '⌚', examples: ['Armbanduhr', 'Wanduhr', 'Wecker'] },
   { id: 'furniture', label: 'Möbel', icon: '🪑', examples: ['Stuhl', 'Tisch', 'Schrank', 'Sofa'] },
-  { id: 'bikes', label: 'Fahrräder', icon: '🚲', examples: ['Rennrad', 'E-Bike', 'Mountainbike'] },
+  { id: 'bikes', label: 'Velos', icon: '🚲', examples: ['Rennvelo', 'E-Bike', 'Mountainbike'] },
   { id: 'cars', label: 'Autos', icon: '🚗', examples: ['Bremsen', 'Motor', 'Getriebe', 'Karosserie'] },
   { id: 'appliances', label: 'Haushaltsgeräte', icon: '🔧', examples: ['Kaffeemaschine', 'Toaster', 'Mixer'] },
   { id: 'other', label: 'Sonstiges', icon: '🔨', examples: ['Spielzeug', 'Werkzeug', 'Dekoration'] }

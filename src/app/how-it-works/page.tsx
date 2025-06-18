@@ -42,7 +42,7 @@ export default function HowItWorksPage() {
               }`}
             >
               <BuildingStorefrontIcon className="w-5 h-5 mr-2" />
-              Für Reparaturshops
+              Für Reparaturbetriebe
             </button>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function HowItWorksPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Bonus erhalten</h3>
                 <p className="text-gray-600">
-                  Erhalten Sie bis zu 200 CHF Reparaturbonus direkt vom Reparaturshop.
+                  Erhalten Sie CHF 100 Reparaturbonus direkt von der Rechnung abgezogen.
                 </p>
               </div>
             </div>
@@ -88,17 +88,17 @@ export default function HowItWorksPage() {
                 <div>
                   <h3 className="text-lg font-semibold mb-3">✓ Berechtigung</h3>
                   <ul className="space-y-2 text-gray-600">
-                    <li>• Wohnsitz im Kanton Zürich</li>
-                    <li>• Reparatur bei teilnehmendem Shop</li>
-                    <li>• Mindestkosten von 30 CHF</li>
+                    <li>• Wohnsitz in der Stadt Zürich</li>
+                    <li>• Reparatur bei teilnehmendem Betrieb</li>
+                    <li>• Persönlicher Bonus-Code generiert</li>
                   </ul>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-3">💰 Bonus-Details</h3>
                   <ul className="space-y-2 text-gray-600">
-                    <li>• Bis zu 50% der Reparaturkosten</li>
-                    <li>• Maximal 200 CHF pro Haushalt/Jahr</li>
-                    <li>• Direktabzug bei der Rechnung</li>
+                    <li>• CHF 100 werden reserviert</li>
+                    <li>• Gültig für 30 Tage</li>
+                    <li>• Direktabzug von der Rechnung</li>
                   </ul>
                 </div>
               </div>
@@ -107,14 +107,14 @@ export default function HowItWorksPage() {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-8 text-white text-center">
               <h2 className="text-2xl font-bold mb-4">Bereit für Ihre Reparatur?</h2>
               <p className="text-blue-100 mb-6">
-                Finden Sie jetzt einen teilnehmenden Reparaturshop in Ihrer Nähe und sparen Sie bis zu 200 CHF!
+                Finden Sie jetzt einen teilnehmenden Reparaturbetrieb in Ihrer Nähe und nutzen Sie Ihren CHF 100 Reparaturbonus.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
                   href="/shops" 
                   className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-flex items-center justify-center"
                 >
-                  Reparaturshops finden
+                  Reparaturbetriebe finden
                   <ChevronRightIcon className="w-5 h-5 ml-2" />
                 </Link>
                 <Link 
@@ -138,7 +138,7 @@ export default function HowItWorksPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Registrierung</h3>
                 <p className="text-gray-600">
-                  Melden Sie Ihren Reparaturshop für das Reparaturbonus-Programm an.
+                  Melden Sie Ihren Reparaturbetrieb für das Reparaturbonus-Programm an.
                 </p>
               </div>
 
@@ -158,30 +158,30 @@ export default function HowItWorksPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Abrechnung</h3>
                 <p className="text-gray-600">
-                  Rechnen Sie den Reparaturbonus direkt mit dem Kanton Zürich ab.
+                  Rechnen Sie den Reparaturbonus direkt mit ERZ ab.
                 </p>
               </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <h2 className="text-2xl font-bold mb-6 text-green-600">Voraussetzungen für Reparaturshops</h2>
+              <h2 className="text-2xl font-bold mb-6 text-green-600">Voraussetzungen für Reparaturbetriebe</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <h3 className="text-lg font-semibold mb-3">🏪 Betrieb</h3>
                   <ul className="space-y-2 text-gray-600">
-                    <li>• Standort im Kanton Zürich</li>
+                    <li>• Standort in der Stadt Zürich</li>
                     <li>• Gewerbeberechtigung</li>
                     <li>• Qualifizierte Fachkräfte</li>
-                    <li>• Nachweis der Reparaturkompetenz</li>
+                    <li>• Open-House-Vertrag mit ERZ</li>
                   </ul>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-3">💼 Abwicklung</h3>
                   <ul className="space-y-2 text-gray-600">
-                    <li>• Direktabrechnung mit Kanton</li>
-                    <li>• Monatliche Abrechnungszyklen</li>
+                    <li>• Bonus-Code Verifikation</li>
+                    <li>• Wohnsitznachweis prüfen</li>
+                    <li>• Monatliche Abrechnung mit ERZ</li>
                     <li>• Dokumentation der Reparaturen</li>
-                    <li>• Einhaltung der Programmrichtlinien</li>
                   </ul>
                 </div>
               </div>
@@ -215,16 +215,16 @@ export default function HowItWorksPage() {
             </div>
 
             <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-lg p-8 text-white text-center">
-              <h2 className="text-2xl font-bold mb-4">Werden Sie Partnerschaft!</h2>
+              <h2 className="text-2xl font-bold mb-4">Werden Sie Partner!</h2>
               <p className="text-green-100 mb-6">
-                Registrieren Sie Ihren Reparaturshop jetzt und profitieren Sie vom Reparaturbonus-Programm des Kantons Zürich.
+                Registrieren Sie Ihren Reparaturbetrieb jetzt und profitieren Sie vom Reparaturbonus-Programm der Stadt Zürich.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
                   href="/auth/signup" 
                   className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors inline-flex items-center justify-center"
                 >
-                  Shop registrieren
+                  Betrieb registrieren
                   <ChevronRightIcon className="w-5 h-5 ml-2" />
                 </Link>
                 <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
