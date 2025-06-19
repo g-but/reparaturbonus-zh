@@ -211,7 +211,7 @@ export default function AiChat() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 h-96 bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col z-50">
+        <div className="fixed bottom-6 right-6 w-[calc(100vw-3rem)] h-[calc(100vh-6rem)] sm:w-96 sm:h-96 max-w-96 max-h-[32rem] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col z-50">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <div className="flex items-center space-x-2">
@@ -245,34 +245,34 @@ export default function AiChat() {
                   {/* Category Selection Buttons */}
                   {message.categoryButtons && (
                     <div className="mt-3 space-y-2">
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <button
                           onClick={() => handleCategorySelect(SHOP_CATEGORIES.ELECTRONICS, CATEGORY_LABELS[SHOP_CATEGORIES.ELECTRONICS])}
-                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left"
+                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left w-full"
                         >
                           {getCategoryIcon(SHOP_CATEGORIES.ELECTRONICS)}
-                          <span className="text-xs font-medium text-gray-900">{CATEGORY_LABELS[SHOP_CATEGORIES.ELECTRONICS]}</span>
+                          <span className="text-xs font-medium text-gray-900 truncate">{CATEGORY_LABELS[SHOP_CATEGORIES.ELECTRONICS]}</span>
                         </button>
                         <button
                           onClick={() => handleCategorySelect(SHOP_CATEGORIES.CLOTHING, CATEGORY_LABELS[SHOP_CATEGORIES.CLOTHING])}
-                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left"
+                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left w-full"
                         >
                           {getCategoryIcon(SHOP_CATEGORIES.CLOTHING)}
-                          <span className="text-xs font-medium text-gray-900">{CATEGORY_LABELS[SHOP_CATEGORIES.CLOTHING]}</span>
+                          <span className="text-xs font-medium text-gray-900 truncate">{CATEGORY_LABELS[SHOP_CATEGORIES.CLOTHING]}</span>
                         </button>
                         <button
                           onClick={() => handleCategorySelect(SHOP_CATEGORIES.SHOES, CATEGORY_LABELS[SHOP_CATEGORIES.SHOES])}
-                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left"
+                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left w-full"
                         >
                           {getCategoryIcon(SHOP_CATEGORIES.SHOES)}
-                          <span className="text-xs font-medium text-gray-900">{CATEGORY_LABELS[SHOP_CATEGORIES.SHOES]}</span>
+                          <span className="text-xs font-medium text-gray-900 truncate">{CATEGORY_LABELS[SHOP_CATEGORIES.SHOES]}</span>
                         </button>
                         <button
                           onClick={() => handleCategorySelect('OTHER', 'Etwas anderes')}
-                          className="flex items-center space-x-2 p-2 bg-gray-50 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors text-left"
+                          className="flex items-center space-x-2 p-2 bg-gray-50 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors text-left w-full"
                         >
                           {getCategoryIcon('OTHER')}
-                          <span className="text-xs font-medium text-gray-600">Etwas anderes</span>
+                          <span className="text-xs font-medium text-gray-600 truncate">Etwas anderes</span>
                         </button>
                       </div>
                       <p className="text-xs text-gray-600 mt-2">

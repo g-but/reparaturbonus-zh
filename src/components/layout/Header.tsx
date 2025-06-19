@@ -9,6 +9,7 @@ import Image from 'next/image'
 export default function Header() {
   const { data: session } = useSession()
   const [scrolled, setScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,14 @@ export default function Header() {
 
   const handleSignOut = () => {
     signOut({ callbackUrl: ROUTES.HOME })
+  }
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+  }
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false)
   }
 
   return (
@@ -41,44 +50,60 @@ export default function Header() {
             <Link 
               href={ROUTES.HOME} 
               className="flex items-center group"
+              onClick={closeMobileMenu}
             >
               <Image
                 src="/logo/logo-main-header.png"
                 alt="Stadt Zürich Reparaturbonus"
-                width={scrolled ? 140 : 180}
-                height={scrolled ? 35 : 45}
-                className="transition-all duration-300 group-hover:opacity-80 object-contain"
+                width={scrolled ? 120 : 140}
+                height={scrolled ? 30 : 35}
+                className="transition-all duration-300 group-hover:opacity-80 object-contain sm:w-auto w-28"
                 priority
               />
             </Link>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex items-center space-x-6">
+          {/* Mobile menu button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="md:hidden flex items-center justify-center w-8 h-8 text-gray-700 hover:text-indigo-600 focus:outline-none"
+            aria-label="Toggle mobile menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
             <Link 
               href={ROUTES.SHOPS} 
-              className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full ${
-                scrolled ? 'text-sm' : 'text-base'
+              className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
+                scrolled ? 'text-sm' : 'text-sm lg:text-base'
               }`}
             >
-              Reparaturwerkstätten
+              Werkstätten
             </Link>
 
             <Link 
               href={ROUTES.HOW_IT_WORKS} 
-              className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full ${
-                scrolled ? 'text-sm' : 'text-base'
+              className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
+                scrolled ? 'text-sm' : 'text-sm lg:text-base'
               }`}
             >
-              Wie es funktioniert
+              Anleitung
             </Link>
 
             {session ? (
               <>
                 <Link 
                   href={ROUTES.DASHBOARD} 
-                  className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full ${
-                    scrolled ? 'text-sm' : 'text-base'
+                  className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
+                    scrolled ? 'text-sm' : 'text-sm lg:text-base'
                   }`}
                 >
                   Dashboard
@@ -87,24 +112,24 @@ export default function Header() {
                 {(session.user as { role?: string })?.role === 'ADMIN' || (session.user as { role?: string })?.role === 'SUPER_ADMIN' ? (
                   <Link 
                     href={ROUTES.ADMIN} 
-                    className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full ${
-                      scrolled ? 'text-sm' : 'text-base'
+                    className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
+                      scrolled ? 'text-sm' : 'text-sm lg:text-base'
                     }`}
                   >
                     Admin
                   </Link>
                 ) : null}
 
-                <div className="flex items-center space-x-4">
-                  <span className={`text-gray-700 transition-all duration-300 ${
+                <div className="flex items-center space-x-2 lg:space-x-4">
+                  <span className={`text-gray-700 transition-all duration-300 hidden lg:inline ${
                     scrolled ? 'text-sm' : 'text-sm'
                   }`}>
                     Willkommen, {session.user?.name}
                   </span>
                   <button
                     onClick={handleSignOut}
-                    className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 ${
-                      scrolled ? 'text-sm' : 'text-base'
+                    className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 whitespace-nowrap ${
+                      scrolled ? 'text-sm' : 'text-sm lg:text-base'
                     }`}
                   >
                     Abmelden
@@ -112,19 +137,19 @@ export default function Header() {
                 </div>
               </>
             ) : (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 lg:space-x-4">
                 <Link 
                   href={ROUTES.AUTH.SIGNIN} 
-                  className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full ${
-                    scrolled ? 'text-sm' : 'text-base'
+                  className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
+                    scrolled ? 'text-sm' : 'text-sm lg:text-base'
                   }`}
                 >
                   Anmelden
                 </Link>
                 <Link 
                   href={ROUTES.AUTH.SIGNUP} 
-                  className={`bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl ${
-                    scrolled ? 'px-3 py-2 text-sm' : 'px-4 py-2 text-base'
+                  className={`bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl whitespace-nowrap ${
+                    scrolled ? 'px-2 py-1.5 text-sm' : 'px-3 py-2 text-sm lg:px-4 lg:text-base'
                   }`}
                 >
                   Registrieren
@@ -133,6 +158,83 @@ export default function Header() {
             )}
           </nav>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-100 absolute left-0 right-0 top-full shadow-lg">
+            <nav className="px-4 py-4 space-y-4">
+              <Link 
+                href={ROUTES.SHOPS} 
+                className="block text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
+                onClick={closeMobileMenu}
+              >
+                Reparaturwerkstätten
+              </Link>
+
+              <Link 
+                href={ROUTES.HOW_IT_WORKS} 
+                className="block text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
+                onClick={closeMobileMenu}
+              >
+                Wie es funktioniert
+              </Link>
+
+              {session ? (
+                <>
+                  <Link 
+                    href={ROUTES.DASHBOARD} 
+                    className="block text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
+                    onClick={closeMobileMenu}
+                  >
+                    Dashboard
+                  </Link>
+                  
+                  {(session.user as { role?: string })?.role === 'ADMIN' || (session.user as { role?: string })?.role === 'SUPER_ADMIN' ? (
+                    <Link 
+                      href={ROUTES.ADMIN} 
+                      className="block text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
+                      onClick={closeMobileMenu}
+                    >
+                      Admin
+                    </Link>
+                  ) : null}
+
+                  <div className="border-t border-gray-200 pt-4">
+                    <p className="text-gray-700 text-sm mb-2">
+                      Willkommen, {session.user?.name}
+                    </p>
+                    <button
+                      onClick={() => {
+                        handleSignOut()
+                        closeMobileMenu()
+                      }}
+                      className="text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
+                    >
+                      Abmelden
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="border-t border-gray-200 pt-4 space-y-2">
+                  <Link 
+                    href={ROUTES.AUTH.SIGNIN} 
+                    className="block text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
+                    onClick={closeMobileMenu}
+                  >
+                    Anmelden
+                  </Link>
+                  <Link 
+                    href={ROUTES.AUTH.SIGNUP} 
+                    className="block bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors duration-200 px-4 py-2 text-center"
+                    onClick={closeMobileMenu}
+                  >
+                    Registrieren
+                  </Link>
+                </div>
+              )}
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   )
