@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { ROUTES } from '@/lib/constants/routes'
+import Image from 'next/image'
 
 export default function Header() {
   const { data: session } = useSession()
@@ -33,7 +34,7 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex justify-between items-center transition-all duration-300 ${
-          scrolled ? 'py-3' : 'py-4'
+          scrolled ? 'py-2' : 'py-3'
         }`}>
           {/* Logo */}
           <div className="flex items-center">
@@ -41,11 +42,14 @@ export default function Header() {
               href={ROUTES.HOME} 
               className="flex items-center group"
             >
-              <h1 className={`font-bold text-gray-900 group-hover:text-indigo-600 transition-all duration-300 ${
-                scrolled ? 'text-xl' : 'text-2xl'
-              }`}>
-                Reparaturbonus Zürich
-              </h1>
+              <Image
+                src="/logo/logo-main-header.png"
+                alt="Stadt Zürich Reparaturbonus"
+                width={scrolled ? 140 : 180}
+                height={scrolled ? 35 : 45}
+                className="transition-all duration-300 group-hover:opacity-80 object-contain"
+                priority
+              />
             </Link>
           </div>
 

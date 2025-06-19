@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ROUTES } from '@/lib/constants/routes'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -8,7 +9,20 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="md:col-span-2">
-            <h3 className="text-lg font-semibold mb-4">Reparaturbonus Zürich</h3>
+            <div className="mb-4">
+              <Link 
+                href={ROUTES.HOME} 
+                className="inline-block group hover:opacity-80 transition-opacity duration-200"
+              >
+                <Image
+                  src="/logo/logo-transparent.png"
+                  alt="Stadt Zürich Reparaturbonus"
+                  width={200}
+                  height={50}
+                  className="object-contain"
+                />
+              </Link>
+            </div>
             <p className="text-gray-300 mb-4">
               Förderung einer nachhaltigen Reparaturkultur in Zürich durch Belohnungen 
               für Reparaturen statt Neukauf.

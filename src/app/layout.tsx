@@ -19,6 +19,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Reparaturbonus Zürich",
   description: "Finden Sie die beste Reparaturwerkstatt in Zürich und erhalten Sie bis zu CHF 100 Bonus.",
+  icons: {
+    icon: [
+      { url: "/logo/favicon_emblem_final (1).ico", sizes: "any" },
+      { url: "/logo/favicon_emblem_final_16 (1).png", type: "image/png", sizes: "16x16" },
+      { url: "/logo/favicon_emblem_final_48 (1).png", type: "image/png", sizes: "48x48" },
+    ],
+    shortcut: "/logo/favicon_emblem_final (1).ico",
+    apple: "/logo/favicon_emblem_final_48 (1).png",
+  },
 };
 
 export default function RootLayout({
@@ -34,7 +43,7 @@ export default function RootLayout({
         <SessionProviderWrapper>
           <div className="min-h-screen flex flex-col">
             <Header />
-            <main className="flex-1 pt-20">
+            <main className="flex-1 pt-16">
               {children}
             </main>
             <Footer />

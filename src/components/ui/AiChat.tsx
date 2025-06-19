@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { ChatBubbleLeftRightIcon, XMarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
-import { SparklesIcon, WrenchScrewdriverIcon, ShirtIcon, HomeIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/solid'
+import { SparklesIcon, WrenchScrewdriverIcon, TagIcon, HomeIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/solid'
 import { CATEGORY_LABELS, SHOP_CATEGORIES } from '@/lib/constants/categories'
 
 interface Message {
@@ -184,7 +184,7 @@ export default function AiChat() {
       case SHOP_CATEGORIES.ELECTRONICS:
         return <WrenchScrewdriverIcon className="h-5 w-5" />
       case SHOP_CATEGORIES.CLOTHING:
-        return <ShirtIcon className="h-5 w-5" />
+        return <TagIcon className="h-5 w-5" />
       case SHOP_CATEGORIES.SHOES:
         return <HomeIcon className="h-5 w-5" />
       case 'OTHER':
