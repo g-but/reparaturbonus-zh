@@ -2,11 +2,29 @@
 
 **Created Date:** 2024-12-19  
 **Last Modified Date:** 2024-12-19  
-**Last Modified Summary:** Corrected CHF amount from 200 to 100, updated terminology to Swiss German (Velos instead of Fahrräder), and ensured accuracy with official documentation
+**Last Modified Summary:** Reduced categories to only 3 that qualify for bonuses from Zurich: Elektro und Elektronik (includes computers and household appliances), Kleidung, and Schuhe. All other categories removed as they don't qualify for city subsidies.
 
 ## Overview
 
 The "How It Works" page explains the repair bonus system for both customers and repair shops, based on the official documentation (Section 3.3 Reparaturplattform). The page presents information in an easy-to-understand manner for both audiences with clear navigation.
+
+## Qualifying Categories
+
+The Reparaturbonus from Stadt Zürich is now limited to only 3 categories that qualify for subsidies:
+
+1. **Elektro und Elektronik** - Includes smartphones, laptops, tablets, household appliances (coffee machines, toasters, mixers), and all electronic devices
+2. **Kleidung** - All clothing items, alterations, and textile repairs
+3. **Schuhe** - Shoe repairs, sole replacement, heel repairs, and leather work
+
+### Removed Categories
+The following categories have been removed as they do not qualify for bonuses from Zurich:
+- Uhren (Watches)
+- Schmuck (Jewelry) 
+- Möbel (Furniture)
+- Fahrräder/Velos (Bicycles)
+- Autos (Cars)
+- Taschen (Bags)
+- Sonstiges (Other)
 
 ## Key Features
 

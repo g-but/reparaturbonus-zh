@@ -52,28 +52,16 @@ interface Shop {
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  'ELECTRONICS': 'Elektronik',
+  'ELECTRONICS': 'Elektro und Elektronik',
   'CLOTHING': 'Kleidung',
-  'SHOES': 'Schuhe',
-  'WATCHES': 'Uhren',
-  'FURNITURE': 'Möbel',
-  'BIKES': 'Fahrräder',
-  'CARS': 'Autos',
-  'APPLIANCES': 'Haushaltsgeräte',
-  'OTHER': 'Sonstiges'
+  'SHOES': 'Schuhe'
 }
 
 const getCategoryIcon = (category: string) => {
   const icons: Record<string, string> = {
     'ELECTRONICS': '📱',
     'CLOTHING': '👕',
-    'SHOES': '👟',
-    'WATCHES': '⌚',
-    'FURNITURE': '🪑',
-    'BIKES': '🚲',
-    'CARS': '🚗',
-    'APPLIANCES': '🔧',
-    'OTHER': '🔨'
+    'SHOES': '👟'
   }
   return icons[category] || '🔧'
 }

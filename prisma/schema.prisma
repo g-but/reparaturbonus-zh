@@ -92,15 +92,7 @@ enum UserRole {
 enum ShopCategory {
   ELECTRONICS
   CLOTHING
-  JEWELRY
-  WATCHES
-  APPLIANCES
-  FURNITURE
   SHOES
-  BAGS
-  BIKES
-  CARS
-  OTHER
 }
 
 enum OrderStatus {

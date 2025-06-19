@@ -108,24 +108,12 @@ async function getSuggestedShops(message: string) {
     let category = null
     
     // Map keywords to shop categories
-    if (lowerMessage.includes('handy') || lowerMessage.includes('smartphone') || lowerMessage.includes('laptop') || lowerMessage.includes('computer')) {
+    if (lowerMessage.includes('handy') || lowerMessage.includes('smartphone') || lowerMessage.includes('laptop') || lowerMessage.includes('computer') || lowerMessage.includes('kaffeemaschine') || lowerMessage.includes('toaster') || lowerMessage.includes('haushaltsgerät') || lowerMessage.includes('elektronik')) {
       category = 'ELECTRONICS'
     } else if (lowerMessage.includes('kleidung') || lowerMessage.includes('jacke') || lowerMessage.includes('hose')) {
       category = 'CLOTHING'
     } else if (lowerMessage.includes('schuhe') || lowerMessage.includes('absatz')) {
       category = 'SHOES'
-    } else if (lowerMessage.includes('möbel') || lowerMessage.includes('stuhl') || lowerMessage.includes('tisch')) {
-      category = 'FURNITURE'
-    } else if (lowerMessage.includes('fahrrad') || lowerMessage.includes('velo') || lowerMessage.includes('bike')) {
-      category = 'BIKES'
-    } else if (lowerMessage.includes('kaffeemaschine') || lowerMessage.includes('toaster') || lowerMessage.includes('haushaltsgerät')) {
-      category = 'APPLIANCES'
-    } else if (lowerMessage.includes('auto') || lowerMessage.includes('car')) {
-      category = 'CARS'
-    } else if (lowerMessage.includes('uhr') || lowerMessage.includes('watch')) {
-      category = 'WATCHES'
-    } else if (lowerMessage.includes('schmuck') || lowerMessage.includes('jewelry')) {
-      category = 'JEWELRY'
     }
     
     if (!category) return []

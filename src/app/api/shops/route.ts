@@ -41,15 +41,15 @@ const mockShops = [
   },
   {
     id: 'mock-3',
-    name: 'Bike Service Zürich',
-    description: 'Professionelle Fahrradreparaturen und E-Bike Service. Schnell, zuverlässig und fair.',
+    name: 'Schuh-Reparatur Meister',
+    description: 'Traditionelle Schuhmacherei mit moderner Ausstattung. Wir reparieren alle Arten von Schuhen.',
     address: 'Limmatstrasse 152',
     city: 'Zürich',
     postalCode: '8005',
     phone: '+41 44 456 78 90',
-    email: 'service@bike-zuerich.ch',
-    website: 'https://bike-service-zuerich.ch',
-    category: 'BIKES',
+    email: 'info@schuh-reparatur.ch',
+    website: null,
+    category: 'SHOES',
     latitude: 47.3769,
     longitude: 8.5417,
     isActive: true,
@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
       shops = await prisma.shop.findMany({
         where: {
           isActive: true,
-          ...(category && category !== 'ALL' && { category: category as 'ELECTRONICS' | 'CLOTHING' | 'SHOES' | 'WATCHES' | 'FURNITURE' | 'BIKES' | 'CARS' | 'APPLIANCES' | 'OTHER' }),
+          ...(category && category !== 'ALL' && { category: category as 'ELECTRONICS' | 'CLOTHING' | 'SHOES' }),
           ...(search && {
             OR: [
               { name: { contains: search, mode: 'insensitive' } },

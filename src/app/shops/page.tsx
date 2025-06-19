@@ -97,14 +97,9 @@ const getRepairCapabilities = (item: string, category?: string) => {
   // Add category-based keywords
   if (category) {
     const categoryKeywords: Record<string, string[]> = {
-      'electronics': ['elektronik', 'display', 'akku', 'reparatur', 'smartphone', 'computer'],
+      'electronics': ['elektronik', 'display', 'akku', 'reparatur', 'smartphone', 'computer', 'haushaltsgeräte', 'kaffeemaschine', 'toaster', 'mixer'],
       'clothing': ['kleidung', 'textil', 'nähen', 'reissverschluss', 'änderung'],
-      'shoes': ['schuhe', 'leder', 'sohle', 'absatz', 'reparatur', 'schuh'],
-      'watches': ['uhren', 'uhr', 'batterie', 'armband', 'glas'],
-      'furniture': ['möbel', 'holz', 'polster', 'reparatur'],
-      'bikes': ['fahrrad', 'velo', 'rad', 'reifen', 'kette'],
-      'cars': ['auto', 'fahrzeug', 'kfz', 'motor', 'bremsen', 'getriebe', 'karosserie', 'reparatur'],
-      'appliances': ['haushaltsgeräte', 'elektronik', 'reparatur']
+      'shoes': ['schuhe', 'leder', 'sohle', 'absatz', 'reparatur', 'schuh']
     }
     
     const categoryKey = category.toLowerCase()
@@ -239,13 +234,7 @@ export default function ShopsPage() {
     const icons: Record<string, string> = {
       'ELECTRONICS': '📱',
       'CLOTHING': '👕',
-      'SHOES': '👟',
-      'WATCHES': '⌚',
-      'FURNITURE': '🪑',
-      'BIKES': '🚲',
-      'CARS': '🚗',
-      'APPLIANCES': '🔧',
-      'OTHER': '🔨'
+      'SHOES': '👟'
     }
     return icons[category] || '🔧'
   }

@@ -6,15 +6,9 @@ import { MagnifyingGlassIcon, GiftIcon, CameraIcon, WrenchScrewdriverIcon, Spark
 import { ROUTES } from '@/lib/constants/routes'
 
 const REPAIR_CATEGORIES = [
-  { id: 'electronics', label: 'Elektronik', icon: '📱', examples: ['Smartphone', 'Laptop', 'Tablet', 'Kopfhörer'] },
+  { id: 'electronics', label: 'Elektro und Elektronik', icon: '📱', examples: ['Smartphone', 'Laptop', 'Tablet', 'Kopfhörer', 'Kaffeemaschine', 'Toaster'] },
   { id: 'clothing', label: 'Kleidung', icon: '👕', examples: ['Jacke', 'Hose', 'T-Shirt', 'Tasche'] },
-  { id: 'shoes', label: 'Schuhe', icon: '👟', examples: ['Sneaker', 'Stiefel', 'Sandalen', 'Absätze'] },
-  { id: 'watches', label: 'Uhren', icon: '⌚', examples: ['Armbanduhr', 'Wanduhr', 'Wecker'] },
-  { id: 'furniture', label: 'Möbel', icon: '🪑', examples: ['Stuhl', 'Tisch', 'Schrank', 'Sofa'] },
-  { id: 'bikes', label: 'Velos', icon: '🚲', examples: ['Rennvelo', 'E-Bike', 'Mountainbike'] },
-  { id: 'cars', label: 'Autos', icon: '🚗', examples: ['Bremsen', 'Motor', 'Getriebe', 'Karosserie'] },
-  { id: 'appliances', label: 'Haushaltsgeräte', icon: '🔧', examples: ['Kaffeemaschine', 'Toaster', 'Mixer'] },
-  { id: 'other', label: 'Sonstiges', icon: '🔨', examples: ['Spielzeug', 'Werkzeug', 'Dekoration'] }
+  { id: 'shoes', label: 'Schuhe', icon: '👟', examples: ['Sneaker', 'Stiefel', 'Sandalen', 'Absätze'] }
 ]
 
 export default function Home() {

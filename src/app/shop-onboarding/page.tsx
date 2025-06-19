@@ -30,14 +30,14 @@ interface ShopFormData {
 const categories = [
   { 
     value: 'ELECTRONICS', 
-    label: 'Elektronik', 
+    label: 'Elektro und Elektronik', 
     icon: '📱',
-    description: 'Smartphones, Laptops, Tablets, Kameras',
-    examples: ['iPhone Display', 'Laptop Tastatur', 'Tablet Akku', 'Kamera Objektiv']
+    description: 'Smartphones, Laptops, Tablets, Haushaltsgeräte, Computer',
+    examples: ['iPhone Display', 'Laptop Tastatur', 'Tablet Akku', 'Kamera Objektiv', 'Kaffeemaschine', 'Toaster', 'Mixer']
   },
   { 
     value: 'CLOTHING', 
-    label: 'Kleidung & Textilien', 
+    label: 'Kleidung', 
     icon: '👕',
     description: 'Schneiderei, Änderungen, Reparaturen',
     examples: ['Reißverschluss', 'Saum kürzen', 'Löcher flicken', 'Knöpfe annähen']
@@ -48,55 +48,6 @@ const categories = [
     icon: '👟',
     description: 'Schuhreparatur und Pflege',
     examples: ['Sohle erneuern', 'Absatz reparieren', 'Leder flicken', 'Schuhpflege']
-  },
-  { 
-    value: 'WATCHES', 
-    label: 'Uhren', 
-    icon: '⌚',
-    description: 'Uhrmacherei und Zeitmesser',
-    examples: ['Batterie wechseln', 'Armband kürzen', 'Uhrwerk reparieren', 'Glas erneuern']
-  },
-  { 
-    value: 'JEWELRY', 
-    label: 'Schmuck', 
-    icon: '💍',
-    description: 'Schmuckreparatur und -anfertigung',
-    examples: ['Ring vergrößern', 'Kette reparieren', 'Verschluss erneuern', 'Gravur']
-  },
-  { 
-    value: 'FURNITURE', 
-    label: 'Möbel', 
-    icon: '🪑',
-    description: 'Möbelrestaurierung und -reparatur',
-    examples: ['Stuhl reparieren', 'Tisch abschleifen', 'Scharniere erneuern', 'Polstern']
-  },
-  { 
-    value: 'BIKES', 
-    label: 'Fahrräder', 
-    icon: '🚲',
-    description: 'Fahrradreparatur und E-Bike Service',
-    examples: ['Reifen wechseln', 'Bremsen einstellen', 'Schaltung justieren', 'E-Bike Akku']
-  },
-  { 
-    value: 'CARS', 
-    label: 'Automobile', 
-    icon: '🚗',
-    description: 'KFZ-Werkstatt und Autoreparatur',
-    examples: ['Ölwechsel', 'Bremsen Service', 'TÜV Vorbereitung', 'Klimaanlage']
-  },
-  { 
-    value: 'APPLIANCES', 
-    label: 'Haushaltsgeräte', 
-    icon: '🔧',
-    description: 'Haushaltsgeräte-Reparatur',
-    examples: ['Kaffeemaschine', 'Waschmaschine', 'Mixer', 'Toaster']
-  },
-  { 
-    value: 'OTHER', 
-    label: 'Sonstiges', 
-    icon: '🔨',
-    description: 'Andere Reparatur-Dienstleistungen',
-    examples: ['Spielzeug', 'Werkzeug', 'Instrumente', 'Spezialgeräte']
   }
 ]
 
@@ -109,7 +60,11 @@ const specializationGroups = {
     'Akku Austausch',
     'Wasserschaden',
     'Datenrettung',
-    'Software Installation'
+    'Software Installation',
+    'Haushaltsgeräte Service',
+    'Kaffeemaschine Reparatur',
+    'Mixer Reparatur',
+    'Toaster Reparatur'
   ],
   'CLOTHING': [
     'Schneiderei',
@@ -124,48 +79,6 @@ const specializationGroups = {
     'Sohle erneuern',
     'Leder flicken',
     'Schuhpflege'
-  ],
-  'WATCHES': [
-    'Uhrmacher',
-    'Batterie wechseln',
-    'Armband kürzen',
-    'Uhrwerk reparieren'
-  ],
-  'JEWELRY': [
-    'Schmuckanfertigung',
-    'Ring vergrößern',
-    'Kette reparieren',
-    'Gravur'
-  ],
-  'FURNITURE': [
-    'Möbelrestaurierung',
-    'Polsterarbeiten',
-    'Scharniere erneuern',
-    'Holz reparieren'
-  ],
-  'BIKES': [
-    'Fahrradreparatur',
-    'E-Bike Service',
-    'Bremsen einstellen',
-    'Schaltung justieren'
-  ],
-  'CARS': [
-    'Autoreparatur',
-    'Bremsen Service',
-    'Ölwechsel',
-    'TÜV Vorbereitung'
-  ],
-  'APPLIANCES': [
-    'Haushaltsgeräte Service',
-    'Kaffeemaschine Reparatur',
-    'Waschmaschine Service',
-    'Mixer Reparatur'
-  ],
-  'OTHER': [
-    'Spielzeug Reparatur',
-    'Werkzeug Service',
-    'Spezialgeräte',
-    'Maßanfertigung'
   ]
 }
 
