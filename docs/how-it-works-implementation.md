@@ -2,11 +2,54 @@
 
 **Created Date:** 2024-12-19  
 **Last Modified Date:** 2024-12-19  
-**Last Modified Summary:** Reduced categories to only 3 that qualify for bonuses from Zurich: Elektro und Elektronik (includes computers and household appliances), Kleidung, and Schuhe. All other categories removed as they don't qualify for city subsidies.
+**Last Modified Summary:** Enhanced AI chat with category selection interface and added fourth "something else" category with positive reinforcement messaging for non-bonus eligible repairs.
 
 ## Overview
 
 The "How It Works" page explains the repair bonus system for both customers and repair shops, based on the official documentation (Section 3.3 Reparaturplattform). The page presents information in an easy-to-understand manner for both audiences with clear navigation.
+
+## AI Chat Enhancement
+
+### Category Selection Interface
+The AI chat now starts with an interactive category selection instead of a generic greeting:
+- **Visual category buttons** with icons for easy selection
+- **Grid layout** with 2x2 button arrangement for optimal mobile experience
+- **Immediate category filtering** for targeted shop suggestions
+- **Contextual messaging** based on selected category
+
+### Category Options
+
+#### Bonus-Eligible Categories (3)
+1. **Elektro und Elektronik** - Includes smartphones, laptops, tablets, household appliances (coffee machines, toasters, mixers), and all electronic devices
+2. **Kleidung** - All clothing items, alterations, and textile repairs  
+3. **Schuhe** - Shoe repairs, sole replacement, heel repairs, and leather work
+
+#### Fourth Category: "Etwas anderes" (Something Else)
+- **Frontend-only implementation** - No backend changes required
+- **Different visual styling** - Gray background instead of indigo to indicate non-bonus status
+- **Positive reinforcement messaging** - Encourages repair despite no city bonus
+- **Environmental messaging** - Highlights environmental benefits of repair
+- **General support offer** - Provides repair tips and general workshop recommendations
+
+### User Experience Design
+
+#### Visual Differentiation
+- **Bonus categories**: White background with indigo border
+- **Something else category**: Gray background with gray border  
+- **Icons**: Category-specific icons (wrench, shirt, house, question mark)
+- **Tip banner**: "💡 Tipp: Für Elektro, Kleidung und Schuhe gibt es Reparaturbonus!"
+
+#### Interaction Flow
+1. **Initial prompt**: "Hallo! Was möchten Sie reparieren lassen? Wählen Sie eine Kategorie aus:"
+2. **Category selection**: User clicks preferred category button
+3. **Contextual response**: 
+   - Bonus categories → AI proceeds with shop suggestions
+   - Something else → Positive reinforcement message about environmental benefits
+4. **Continued conversation**: Text input remains available for detailed questions
+
+#### Positive Reinforcement Message
+For "something else" category:
+> "Das ist toll, dass Sie Ihr Gerät reparieren möchten! 🔧 Auch wenn die Stadt Zürich für diese Kategorie aktuell keinen Reparaturbonus anbietet, gibt es bestimmt Werkstätten in Ihrer Nähe, die Ihnen helfen können. Reparieren ist immer besser als wegwerfen - Sie schonen damit die Umwelt und sparen Geld! Beschreiben Sie mir gerne, was kaputt ist, und ich kann Ihnen Tipps geben oder allgemeine Werkstätten empfehlen."
 
 ## Qualifying Categories
 

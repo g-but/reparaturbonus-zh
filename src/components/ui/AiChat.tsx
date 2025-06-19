@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { ChatBubbleLeftRightIcon, XMarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
-import { SparklesIcon } from '@heroicons/react/24/solid'
+import { SparklesIcon, WrenchScrewdriverIcon, ShirtIcon, HomeIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/solid'
+import { CATEGORY_LABELS, SHOP_CATEGORIES } from '@/lib/constants/categories'
 
 interface Message {
   id: string
@@ -15,6 +16,7 @@ interface Message {
     category: string
     address: string
   }>
+  categoryButtons?: boolean
 }
 
 export default function AiChat() {
@@ -22,13 +24,15 @@ export default function AiChat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Hallo! Ich bin Ihr AI-Reparatur-Assistent. Wie kann ich Ihnen heute helfen? Sie können mir Fragen zu Reparaturen stellen oder beschreiben, was kaputt ist.',
+      text: 'Hallo! Was möchten Sie reparieren lassen? Wählen Sie eine Kategorie aus:',
       sender: 'ai',
-      timestamp: new Date()
+      timestamp: new Date(),
+      categoryButtons: true
     }
   ])
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -38,6 +42,74 @@ export default function AiChat() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  const handleCategorySelect = async (category: string, categoryLabel: string) => {
+    setSelectedCategory(category)
+    
+    // Add user message showing selected category
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: `Ich möchte etwas aus der Kategorie "${categoryLabel}" reparieren lassen.`,
+      sender: 'user',
+      timestamp: new Date()
+    }
+
+    setMessages(prev => [...prev, userMessage])
+    setIsTyping(true)
+
+    // Handle "something else" category differently
+    if (category === 'OTHER') {
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: 'Das ist toll, dass Sie Ihr Gerät reparieren möchten! 🔧 Auch wenn die Stadt Zürich für diese Kategorie aktuell keinen Reparaturbonus anbietet, gibt es bestimmt Werkstätten in Ihrer Nähe, die Ihnen helfen können. Reparieren ist immer besser als wegwerfen - Sie schonen damit die Umwelt und sparen Geld! Beschreiben Sie mir gerne, was kaputt ist, und ich kann Ihnen Tipps geben oder allgemeine Werkstätten empfehlen.',
+        sender: 'ai',
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, aiMessage])
+      setIsTyping(false)
+      return
+    }
+
+    // For bonus-eligible categories, proceed with AI chat
+    try {
+      const response = await fetch('/api/ai-chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: `Ich möchte etwas aus der Kategorie ${categoryLabel} reparieren lassen.`,
+          conversationHistory: messages,
+          category: category
+        }),
+      })
+
+      if (!response.ok) throw new Error('Failed to get AI response')
+
+      const data = await response.json()
+
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: data.response,
+        sender: 'ai',
+        timestamp: new Date(),
+        shopSuggestions: data.shopSuggestions
+      }
+
+      setMessages(prev => [...prev, aiMessage])
+    } catch (error) {
+      console.error('Error sending message:', error)
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: 'Entschuldigung, es gab ein Problem mit meiner Antwort. Bitte versuchen Sie es erneut.',
+        sender: 'ai',
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsTyping(false)
+    }
+  }
 
   const handleSendMessage = async () => {
     if (!inputText.trim()) return
@@ -61,7 +133,8 @@ export default function AiChat() {
         },
         body: JSON.stringify({
           message: inputText,
-          conversationHistory: messages
+          conversationHistory: messages,
+          category: selectedCategory
         }),
       })
 
@@ -104,6 +177,21 @@ export default function AiChat() {
       hour: '2-digit', 
       minute: '2-digit' 
     })
+  }
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case SHOP_CATEGORIES.ELECTRONICS:
+        return <WrenchScrewdriverIcon className="h-5 w-5" />
+      case SHOP_CATEGORIES.CLOTHING:
+        return <ShirtIcon className="h-5 w-5" />
+      case SHOP_CATEGORIES.SHOES:
+        return <HomeIcon className="h-5 w-5" />
+      case 'OTHER':
+        return <QuestionMarkCircleIcon className="h-5 w-5" />
+      default:
+        return <WrenchScrewdriverIcon className="h-5 w-5" />
+    }
   }
 
   return (
@@ -153,6 +241,45 @@ export default function AiChat() {
                     : 'bg-gray-100 text-gray-900'
                 }`}>
                   <p className="text-sm">{message.text}</p>
+                  
+                  {/* Category Selection Buttons */}
+                  {message.categoryButtons && (
+                    <div className="mt-3 space-y-2">
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => handleCategorySelect(SHOP_CATEGORIES.ELECTRONICS, CATEGORY_LABELS[SHOP_CATEGORIES.ELECTRONICS])}
+                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left"
+                        >
+                          {getCategoryIcon(SHOP_CATEGORIES.ELECTRONICS)}
+                          <span className="text-xs font-medium text-gray-900">{CATEGORY_LABELS[SHOP_CATEGORIES.ELECTRONICS]}</span>
+                        </button>
+                        <button
+                          onClick={() => handleCategorySelect(SHOP_CATEGORIES.CLOTHING, CATEGORY_LABELS[SHOP_CATEGORIES.CLOTHING])}
+                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left"
+                        >
+                          {getCategoryIcon(SHOP_CATEGORIES.CLOTHING)}
+                          <span className="text-xs font-medium text-gray-900">{CATEGORY_LABELS[SHOP_CATEGORIES.CLOTHING]}</span>
+                        </button>
+                        <button
+                          onClick={() => handleCategorySelect(SHOP_CATEGORIES.SHOES, CATEGORY_LABELS[SHOP_CATEGORIES.SHOES])}
+                          className="flex items-center space-x-2 p-2 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors text-left"
+                        >
+                          {getCategoryIcon(SHOP_CATEGORIES.SHOES)}
+                          <span className="text-xs font-medium text-gray-900">{CATEGORY_LABELS[SHOP_CATEGORIES.SHOES]}</span>
+                        </button>
+                        <button
+                          onClick={() => handleCategorySelect('OTHER', 'Etwas anderes')}
+                          className="flex items-center space-x-2 p-2 bg-gray-50 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors text-left"
+                        >
+                          {getCategoryIcon('OTHER')}
+                          <span className="text-xs font-medium text-gray-600">Etwas anderes</span>
+                        </button>
+                      </div>
+                      <p className="text-xs text-gray-600 mt-2">
+                        💡 Tipp: Für Elektro, Kleidung und Schuhe gibt es Reparaturbonus!
+                      </p>
+                    </div>
+                  )}
                   
                   {/* Shop Suggestions */}
                   {message.shopSuggestions && message.shopSuggestions.length > 0 && (
