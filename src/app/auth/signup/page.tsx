@@ -71,8 +71,8 @@ export default function SignUp() {
   }
 
   const benefits = [
-    'CHF 100 Reparaturbonus pro Voucher',
-    'Zugang zu qualifizierten Reparaturbetrieben',
+    'CHF 100 Reparaturbonus pro Person und Jahr',
+    'Annahme der Reparaturen in der Stadt Zürich',
     'Einfache Online-Verwaltung',
     'Direktabzug von der Rechnung'
   ]
@@ -85,10 +85,11 @@ export default function SignUp() {
           <div className="order-2 lg:order-1">
             <div className="max-w-lg">
               <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                Werden Sie Teil der Reparatur-Revolution
+                Reparaturförderung in Zürich<br />
+                Machen Sie mit!
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Nutzen Sie CHF 100 für Reparaturen und helfen Sie dabei, unsere Umwelt zu schützen.
+                Melden Sie sich beim Reparaturbonus-Programm an und helfen Sie dabei, unsere Umwelt zu schützen.
               </p>
               
               <div className="space-y-4 mb-8">
@@ -103,7 +104,7 @@ export default function SignUp() {
               <div className="bg-gradient-to-r from-blue-100 to-green-100 rounded-lg p-6">
                 <h3 className="font-semibold text-gray-900 mb-2">💡 Wussten Sie schon?</h3>
                 <p className="text-gray-700 text-sm">
-                  Die Stadt Zürich fördert Reparaturen mit CHF 100 pro Voucher, um die Kreislaufwirtschaft zu stärken und Abfall zu reduzieren.
+                  Die Stadt Zürich fördert Reparaturen von Elektro- und Elektronikgeräten, Kleidern und Schuhen mit einem 3-jährigen Pilotprojekt ab 2026.
                 </p>
               </div>
             </div>
@@ -117,7 +118,7 @@ export default function SignUp() {
                   Konto erstellen
                 </h2>
                 <p className="text-gray-600">
-                  Starten Sie jetzt mit Ihrem Reparaturbonus
+                  Eröffnen Sie jetzt ein Konto
                 </p>
               </div>
 
@@ -149,7 +150,7 @@ export default function SignUp() {
                     onClick={() => setFormData({ ...formData, userType: 'workshop' })}
                   >
                     <BuildingStorefrontIcon className="w-5 h-5 mr-2" />
-                    <span className="text-sm font-medium">Reparaturshop</span>
+                    <span className="text-sm font-medium">Reparaturbetrieb</span>
                   </button>
                 </div>
               </div>
@@ -157,7 +158,7 @@ export default function SignUp() {
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    {formData.userType === 'workshop' ? 'Shop-Name' : 'Vollständiger Name'}
+                    {formData.userType === 'workshop' ? 'Name des Betriebs' : 'Vollständiger Name'}
                   </label>
                   <input
                     id="name"
@@ -165,7 +166,7 @@ export default function SignUp() {
                     type="text"
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
-                    placeholder={formData.userType === 'workshop' ? 'Name Ihres Reparaturshops' : 'Ihr vollständiger Name'}
+                    placeholder={formData.userType === 'workshop' ? 'Name Ihres Reparaturbetriebs' : 'Ihr vollständiger Name'}
                     value={formData.name}
                     onChange={handleChange}
                   />

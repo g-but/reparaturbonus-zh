@@ -54,7 +54,7 @@ export default function SignIn() {
                 Willkommen zurück!
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Verwalten Sie Ihre CHF 100 Reparaturvoucher und entdecken Sie neue Reparaturmöglichkeiten.
+                Verwalten Sie Ihren Reparaturbonus und entdecken Sie neue Reparaturmöglichkeiten.
               </p>
               
               <div className="space-y-6 mb-8">
@@ -64,7 +64,17 @@ export default function SignIn() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Verwalten Sie Ihre Reparaturen</h3>
-                    <p className="text-gray-600 text-sm">Behalten Sie den Überblick über alle Ihre Reparaturvoucher und Bonuscodes.</p>
+                    <p className="text-gray-600 text-sm">Behalten Sie den Überblick über alle Ihre Reparaturen.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-purple-600 text-xl">💰</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Reparaturbonus generieren</h3>
+                    <p className="text-gray-600 text-sm">Generieren Sie einen neuen Reparaturbonus für eine aktuell anstehende Reparatur</p>
                   </div>
                 </div>
                 
@@ -74,25 +84,16 @@ export default function SignIn() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Neue Reparaturbetriebe entdecken</h3>
-                    <p className="text-gray-600 text-sm">Finden Sie qualifizierte Reparaturbetriebe in Ihrer Nähe und lesen Sie Bewertungen.</p>
+                    <p className="text-gray-600 text-sm">Finden Sie passende Reparaturbetriebe in Ihrer Nähe und lesen Sie Bewertungen.</p>
                   </div>
-                </div>
+                </div>                
                 
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                    <span className="text-purple-600 text-xl">💰</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">CHF 100 Reparaturbonus</h3>
-                    <p className="text-gray-600 text-sm">Nutzen Sie Ihren CHF 100 Voucher optimal für Reparaturen aus.</p>
-                  </div>
-                </div>
               </div>
 
               <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-lg p-6">
                 <h3 className="font-semibold text-gray-900 mb-2">🌱 Gut für die Umwelt</h3>
                 <p className="text-gray-700 text-sm">
-                  Jede Reparatur hilft dabei, Elektronikschrott zu vermeiden und wertvolle Ressourcen zu schonen.
+                  Jede Reparatur hilft dabei, CO<sub>2</sub>-Emissionen zu verringern und wertvolle Ressourcen zu schonen.
                 </p>
               </div>
             </div>
