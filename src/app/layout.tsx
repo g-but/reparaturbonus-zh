@@ -48,7 +48,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
-          {/* <RepairChat /> */}
+          {false && <RepairChat />}
         </SessionProviderWrapper>
       </body>
     </html>
