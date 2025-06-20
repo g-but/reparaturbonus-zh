@@ -168,7 +168,7 @@ export default function ShopOnboarding() {
           </div>
           <button
             onClick={() => window.location.href = '/'}
-            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+            className="bg-indigo-600 text-white px-4 py-3 sm:px-6 sm:py-2 rounded-lg hover:bg-indigo-700 transition-colors"
           >
             Zur Startseite
           </button>
@@ -179,7 +179,7 @@ export default function ShopOnboarding() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <PageHeader 
           title="Werkstatt registrieren"
           subtitle="Werden Sie Teil des Reparatur-Netzwerks und helfen Sie dabei, Ressourcen zu schonen"
@@ -213,11 +213,11 @@ export default function ShopOnboarding() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-8">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 lg:p-8">
           {/* Step 1: Basic Information */}
           {currentStep === 1 && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Grundinformationen</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Grundinformationen</h2>
               
               <div className="space-y-6">
                 <div>
@@ -228,7 +228,7 @@ export default function ShopOnboarding() {
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                     placeholder="z.B. Revamp-IT"
                   />
                 </div>
@@ -243,13 +243,13 @@ export default function ShopOnboarding() {
                         key={cat.value}
                         type="button"
                         onClick={() => handleInputChange('category', cat.value)}
-                        className={`p-6 border-2 rounded-xl text-center transition-all duration-200 hover:shadow-lg min-h-[140px] flex flex-col justify-between ${
+                        className={`p-4 sm:p-6 border-2 rounded-xl text-center transition-all duration-200 hover:shadow-lg min-h-[120px] sm:min-h-[140px] flex flex-col justify-between ${
                           formData.category === cat.value
                             ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200'
                             : 'border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
                         }`}
                       >
-                        <div className="text-4xl mb-3 flex justify-center">{cat.icon}</div>
+                        <div className="text-3xl sm:text-4xl mb-2 sm:mb-3 flex justify-center">{cat.icon}</div>
                         <h3 className="font-semibold text-gray-900 text-sm mb-1 text-center">{cat.label}</h3>
                         <p className="text-xs text-gray-600 leading-tight text-center">{cat.description}</p>
                         {formData.category === cat.value && (
@@ -285,7 +285,7 @@ export default function ShopOnboarding() {
                   value={formData.description}
                   onChange={(e) => handleInputChange('description', e.target.value)}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                   placeholder="Beschreiben Sie Ihre Werkstatt und Ihre Spezialisierung..."
                 />
               </div>
@@ -299,7 +299,7 @@ export default function ShopOnboarding() {
                     type="text"
                     value={formData.contactPerson}
                     onChange={(e) => handleInputChange('contactPerson', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                     placeholder="Ihr Name"
                   />
                 </div>
@@ -312,7 +312,7 @@ export default function ShopOnboarding() {
                     type="text"
                     value={formData.businessLicense}
                     onChange={(e) => handleInputChange('businessLicense', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                     placeholder="Nummer der Gewerbeberechtigung"
                   />
                 </div>
@@ -323,7 +323,7 @@ export default function ShopOnboarding() {
           {/* Step 2: Contact Information */}
           {currentStep === 2 && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Kontaktdaten</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Kontaktdaten</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -335,7 +335,7 @@ export default function ShopOnboarding() {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                     placeholder="+41 44 123 45 67"
                   />
                 </div>
@@ -349,7 +349,7 @@ export default function ShopOnboarding() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                     placeholder="info@ihre-werkstatt.ch"
                   />
                 </div>
@@ -364,7 +364,7 @@ export default function ShopOnboarding() {
                   type="url"
                   value={formData.website}
                   onChange={(e) => handleInputChange('website', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                   placeholder="https://ihre-werkstatt.ch"
                 />
               </div>
@@ -379,7 +379,7 @@ export default function ShopOnboarding() {
                     type="text"
                     value={formData.address}
                     onChange={(e) => handleInputChange('address', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                     placeholder="Bahnhofstrasse 45"
                   />
                 </div>
@@ -392,7 +392,7 @@ export default function ShopOnboarding() {
                     type="text"
                     value={formData.postalCode}
                     onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                     placeholder="8001"
                   />
                 </div>
@@ -406,7 +406,7 @@ export default function ShopOnboarding() {
                   type="text"
                   value={formData.city}
                   onChange={(e) => handleInputChange('city', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                   placeholder="Zürich"
                 />
               </div>
@@ -416,7 +416,7 @@ export default function ShopOnboarding() {
           {/* Step 3: Services & Specializations */}
           {currentStep === 3 && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Leistungen & Spezialisierungen</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Leistungen & Spezialisierungen</h2>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-4">
@@ -450,7 +450,7 @@ export default function ShopOnboarding() {
                           type="text"
                           id="custom-service"
                           placeholder="z.B. Spezialservice, den Sie anbieten..."
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                          className="flex-1 px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none text-sm"
                           onKeyPress={(e) => {
                             if (e.key === 'Enter') {
                               e.preventDefault()
@@ -472,7 +472,7 @@ export default function ShopOnboarding() {
                               input.value = ''
                             }
                           }}
-                          className="px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
+                          className="px-3 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
                         >
                           Hinzufügen
                         </button>
@@ -496,7 +496,7 @@ export default function ShopOnboarding() {
                   type="text"
                   value={formData.insurance}
                   onChange={(e) => handleInputChange('insurance', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
                   placeholder="Haftpflichtversicherung Details"
                 />
               </div>
@@ -506,7 +506,7 @@ export default function ShopOnboarding() {
           {/* Step 4: Confirmation */}
           {currentStep === 4 && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Bestätigung & Übersicht</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Bestätigung & Übersicht</h2>
               
               <div className="bg-gray-50 rounded-lg p-6 space-y-4">
                 <div>
@@ -576,7 +576,7 @@ export default function ShopOnboarding() {
             <button
               onClick={prevStep}
               disabled={currentStep === 1}
-              className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-3 sm:px-6 sm:py-2 border-2 border-gray-400 md:border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               Zurück
             </button>
@@ -584,7 +584,7 @@ export default function ShopOnboarding() {
             {currentStep < 4 ? (
               <button
                 onClick={nextStep}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                className="px-4 py-3 sm:px-6 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
               >
                 Weiter
               </button>
@@ -592,7 +592,7 @@ export default function ShopOnboarding() {
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-3 sm:px-6 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {isSubmitting ? 'Wird gesendet...' : 'Antrag senden'}
               </button>
