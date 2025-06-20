@@ -165,14 +165,6 @@ export default function Header() {
               Anleitung
             </Link>
 
-            <Link 
-              href="/warum-reparieren" 
-              className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
-                scrolled ? 'text-sm' : 'text-sm lg:text-base'
-              }`}
-            >
-              Warum reparieren?
-            </Link>
 
             {session ? (
               <>
@@ -273,13 +265,6 @@ export default function Header() {
                 Wie es funktioniert
               </Link>
 
-              <Link 
-                href="/warum-reparieren" 
-                className="block text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
-                onClick={closeMobileMenu}
-              >
-                Warum reparieren?
-              </Link>
 
               {session ? (
                 <>
