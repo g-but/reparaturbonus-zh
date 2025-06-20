@@ -43,7 +43,7 @@ export default function Header() {
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case SHOP_CATEGORIES.ELECTRONICS:
-        return '🔧'
+        return '💻'
       case SHOP_CATEGORIES.CLOTHING:
         return '👔'
       case SHOP_CATEGORIES.SHOES:
