@@ -237,23 +237,23 @@ export default function ShopOnboarding() {
                   <label className="block text-sm font-medium text-gray-700 mb-4">
                     Hauptkategorie Ihrer Werkstatt *
                   </label>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {categories.map((cat) => (
                       <button
                         key={cat.value}
                         type="button"
                         onClick={() => handleInputChange('category', cat.value)}
-                        className={`p-4 border-2 rounded-xl text-left transition-all duration-200 hover:shadow-md ${
+                        className={`p-6 border-2 rounded-xl text-center transition-all duration-200 hover:shadow-lg min-h-[140px] flex flex-col justify-between ${
                           formData.category === cat.value
                             ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200'
                             : 'border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
                         }`}
                       >
-                        <div className="text-3xl mb-2">{cat.icon}</div>
-                        <h3 className="font-semibold text-gray-900 text-sm mb-1">{cat.label}</h3>
-                        <p className="text-xs text-gray-600 leading-tight">{cat.description}</p>
+                        <div className="text-4xl mb-3 flex justify-center">{cat.icon}</div>
+                        <h3 className="font-semibold text-gray-900 text-sm mb-1 text-center">{cat.label}</h3>
+                        <p className="text-xs text-gray-600 leading-tight text-center">{cat.description}</p>
                         {formData.category === cat.value && (
-                          <div className="mt-2">
+                          <div className="mt-2 flex justify-center">
                             <CheckCircleIcon className="h-5 w-5 text-indigo-600" />
                           </div>
                         )}
