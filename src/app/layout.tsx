@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SessionProviderWrapper from "@/components/providers/session-provider";
-import RepairChat from "@/components/ui/AiChat";
+// import RepairChat from "@/components/ui/AiChat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,7 +48,6 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
-          {false && <RepairChat />}
         </SessionProviderWrapper>
       </body>
     </html>

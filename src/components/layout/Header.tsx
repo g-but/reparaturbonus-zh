@@ -177,7 +177,7 @@ export default function Header() {
                   Dashboard
                 </Link>
                 
-                {(session.user as { role?: string })?.role === 'ADMIN' || (session.user as { role?: string })?.role === 'SUPER_ADMIN' ? (
+                {(session?.user as { role?: string })?.role === 'ADMIN' || (session?.user as { role?: string })?.role === 'SUPER_ADMIN' ? (
                   <Link 
                     href={ROUTES.ADMIN} 
                     className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
@@ -192,7 +192,7 @@ export default function Header() {
                   <span className={`text-gray-700 transition-all duration-300 hidden lg:inline ${
                     scrolled ? 'text-sm' : 'text-sm'
                   }`}>
-                    Willkommen, {session.user?.name}
+                    Willkommen, {session?.user?.name}
                   </span>
                   <button
                     onClick={handleSignOut}
@@ -276,7 +276,7 @@ export default function Header() {
                     Dashboard
                   </Link>
                   
-                  {(session.user as { role?: string })?.role === 'ADMIN' || (session.user as { role?: string })?.role === 'SUPER_ADMIN' ? (
+                  {(session?.user as { role?: string })?.role === 'ADMIN' || (session?.user as { role?: string })?.role === 'SUPER_ADMIN' ? (
                     <Link 
                       href={ROUTES.ADMIN} 
                       className="block text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
@@ -288,7 +288,7 @@ export default function Header() {
 
                   <div className="border-t border-gray-200 pt-4">
                     <p className="text-gray-700 text-sm mb-2">
-                      Willkommen, {session.user?.name}
+                      Willkommen, {session?.user?.name}
                     </p>
                     <button
                       onClick={() => {
