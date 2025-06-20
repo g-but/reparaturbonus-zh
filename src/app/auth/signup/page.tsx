@@ -165,7 +165,7 @@ export default function SignUp() {
                     name="name"
                     type="text"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                    className="w-full px-4 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                     placeholder={formData.userType === 'workshop' ? 'Name Ihres Reparaturbetriebs' : 'Ihr vollständiger Name'}
                     value={formData.name}
                     onChange={handleChange}
@@ -182,7 +182,7 @@ export default function SignUp() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                    className="w-full px-4 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                     placeholder="ihre.email@beispiel.com"
                     value={formData.email}
                     onChange={handleChange}

@@ -193,8 +193,8 @@ export function ShopTabs({ shop, averageRating }: ShopTabsProps) {
               <button className="flex items-center p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors w-full">
                 <ChatBubbleLeftRightIcon className="h-5 w-5 mr-3 flex-shrink-0" />
                 <div className="text-left">
-                  <div className="font-medium">WhatsApp</div>
-                  <div className="text-sm opacity-80">Sofort antworten</div>
+                  <div className="font-medium">Nachricht senden</div>
+                  <div className="text-sm opacity-80">Schnelle Antwort</div>
                 </div>
               </button>
             </div>

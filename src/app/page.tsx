@@ -52,14 +52,14 @@ export default function Home() {
                 </div>
 
                 {/* Main Headline */}
-                <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
                   <span className="text-indigo-600">Reparieren</span> statt
                   <span className="block">wegwerfen</span>
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-                  Finden Sie die beste Werkstatt in Zürich, sparen Sie bis zu 70% gegenüber Neukauf 
+                <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
+                  Finden Sie die beste Werkstatt in Zürich, sparen Sie bis zu 70% gegenüber Neukauf
                   und nutzen Sie CHF 100 Reparaturbonus der Stadt.
                 </p>
 
@@ -113,7 +113,7 @@ export default function Home() {
           {/* Trust Indicators */}
           <section className="bg-white border-y border-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center text-center">
+              <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 items-center text-center">
                 <div>
                   <div className="text-2xl font-bold text-indigo-600">8+</div>
                   <div className="text-sm text-gray-600">Werkstätten</div>
@@ -152,15 +152,15 @@ export default function Home() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
               {REPAIR_CATEGORIES.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => handleCategorySelect(category.id)}
-                  className="p-4 sm:p-6 border-2 border-gray-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all duration-200 text-center group"
+                  className="p-6 border-2 border-gray-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all duration-200 text-center group"
                 >
-                  <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">{category.icon}</div>
-                  <div className="text-sm sm:text-base font-semibold text-gray-900 mb-1 sm:mb-2">{category.label}</div>
+                  <div className="text-4xl mb-3">{category.icon}</div>
+                  <div className="font-semibold text-gray-900 mb-2">{category.label}</div>
                   <div className="text-xs text-gray-500 group-hover:text-indigo-600">
                     {category.examples.slice(0, 2).join(', ')}
                   </div>
@@ -291,39 +291,39 @@ export default function Home() {
 
       {/* How It Works Section - Only show on hero */}
       {step === 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">So einfach funktioniert&apos;s</h2>
-            <p className="text-lg sm:text-xl text-gray-600">In 3 Schritten zu Ihrer Reparatur mit Bonus</p>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">So einfach funktioniert's</h2>
+            <p className="text-xl text-gray-600">In 3 Schritten zu Ihrer Reparatur mit Bonus</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
-                <span className="text-xl sm:text-2xl font-bold text-indigo-600">1</span>
+              <div className="mx-auto w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl font-bold text-indigo-600">1</span>
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Reparatur beschreiben</h3>
-              <p className="text-sm sm:text-base text-gray-600">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Reparatur beschreiben</h3>
+              <p className="text-gray-600">
                 Wählen Sie die Kategorie und beschreiben Sie, was repariert werden soll
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <span className="text-xl sm:text-2xl font-bold text-green-600">2</span>
+              <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl font-bold text-green-600">2</span>
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Werkstatt auswählen</h3>
-              <p className="text-sm sm:text-base text-gray-600">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Werkstatt auswählen</h3>
+              <p className="text-gray-600">
                 Erhalten Sie passende Werkstätten in Ihrer Nähe mit Bewertungen und Preisen
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
-                <span className="text-xl sm:text-2xl font-bold text-yellow-600">3</span>
+              <div className="mx-auto w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl font-bold text-yellow-600">3</span>
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">CHF 100 Reparaturbonus</h3>
-              <p className="text-sm sm:text-base text-gray-600">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">CHF 100 Reparaturbonus</h3>
+              <p className="text-gray-600">
                 Nach der Reparatur wird CHF 100 von der Rechnung abgezogen
               </p>
             </div>
@@ -344,41 +344,41 @@ export default function Home() {
       {/* Environmental Impact Section - Only show on hero */}
       {step === 0 && (
         <section className="bg-green-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-            <div className="text-center mb-6 sm:mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 Reparieren statt wegwerfen
               </h2>
-              <p className="text-lg sm:text-xl text-gray-600">Gut für Ihren Geldbeutel und die Umwelt</p>
+              <p className="text-xl text-gray-600">Gut für Ihren Geldbeutel und die Umwelt</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-2xl sm:text-3xl">💰</span>
+                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                  <span className="text-3xl">💰</span>
                 </div>
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Bis zu 70% sparen</h3>
-                <p className="text-sm sm:text-base text-gray-600">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bis zu 70% sparen</h3>
+                <p className="text-gray-600">
                   Reparaturen kosten oft nur einen Bruchteil des Neukaufs
                 </p>
               </div>
 
               <div className="text-center">
-                <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-2xl sm:text-3xl">🌍</span>
+                <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                  <span className="text-3xl">🌍</span>
                 </div>
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">CO2 reduzieren</h3>
-                <p className="text-sm sm:text-base text-gray-600">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">CO2 reduzieren</h3>
+                <p className="text-gray-600">
                   Reparaturen sparen durchschnittlich 70% der CO2-Emissionen einer Neuproduktion
                 </p>
               </div>
 
               <div className="text-center">
-                <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-2xl sm:text-3xl">♻️</span>
+                <div className="mx-auto w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                  <span className="text-3xl">♻️</span>
                 </div>
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Abfall vermeiden</h3>
-                <p className="text-sm sm:text-base text-gray-600">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Abfall vermeiden</h3>
+                <p className="text-gray-600">
                   Weniger Elektroschrott und Müll für eine saubere Zukunft
                 </p>
               </div>
@@ -394,11 +394,11 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
                 <h2 className="text-4xl font-bold text-white mb-6">
-                  Sind Sie ein Reparaturbetrieb?
+                  Sind Sie eine Reparaturwerkstatt?
                 </h2>
                 <p className="text-xl text-slate-300 mb-8 leading-relaxed">
                   Werden Sie Teil des Reparatur-Netzwerks und helfen Sie dabei, 
-                  Zürich nachhaltiger zu machen. Erreichen Sie neue Kund*innen und 
+                  Zürich nachhaltiger zu machen. Erreichen Sie neue Kunden und 
                   profitieren Sie von unserem Bonus-System.
                 </p>
                 
@@ -407,8 +407,8 @@ export default function Home() {
                     <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                       <span className="text-2xl">🔧</span>
                     </div>
-                    <h3 className="font-semibold text-white mb-2">Neue Kund*innen</h3>
-                    <p className="text-sm text-slate-300">Erreichen Sie Kund*innen in ganz Zürich</p>
+                    <h3 className="font-semibold text-white mb-2">Neue Kunden</h3>
+                    <p className="text-sm text-slate-300">Erreichen Sie Kunden in ganz Zürich</p>
                   </div>
                   
                   <div className="text-center">
@@ -483,7 +483,7 @@ export default function Home() {
                         <CheckCircleIcon className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-white font-medium mb-1">Kund*innen erhalten</h4>
+                        <h4 className="text-white font-medium mb-1">Kunden erhalten</h4>
                         <p className="text-slate-300 text-sm">Sofort sichtbar für Reparatur-Suchende</p>
                       </div>
                     </div>
@@ -492,7 +492,7 @@ export default function Home() {
                   <div className="mt-8 p-4 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 rounded-xl border border-amber-400/30">
                     <p className="text-amber-100 text-sm font-medium flex items-start">
                       <span className="text-lg mr-2">💡</span>
-                      <span><strong>&quot;Frühanmelder-Vorteil:&quot;</strong> Die ersten 50 Werkstätten erhalten bevorzugten Support und extra Sichtbarkeit!</span>
+                      <span><strong>"Frühanmelder-Vorteil:"</strong> Die ersten 50 Werkstätten erhalten bevorzugten Support und extra Sichtbarkeit!</span>
                     </p>
                   </div>
                 </div>
@@ -517,7 +517,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="font-semibold text-white mb-2">Zielgruppe erreichen</h4>
-                        <p className="text-slate-300">Kund*innen, die bewusst reparieren statt neu kaufen möchten</p>
+                        <p className="text-slate-300">Kunden, die bewusst reparieren statt neu kaufen möchten</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -526,7 +526,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="font-semibold text-white mb-2">CHF 100 Bonus-System</h4>
-                        <p className="text-slate-300">Kund*innen erhalten Bonus für Reparaturen - mehr Motivation zu reparieren</p>
+                        <p className="text-slate-300">Kunden erhalten Bonus für Reparaturen - mehr Motivation zu reparieren</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -535,7 +535,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="font-semibold text-white mb-2">Moderne Plattform</h4>
-                        <p className="text-slate-300">Einfache Online-Terminbuchung und Kund*innenkommunikation</p>
+                        <p className="text-slate-300">Einfache Online-Terminbuchung und Kundenkommunikation</p>
                       </div>
                     </div>
                   </div>
@@ -605,12 +605,12 @@ export default function Home() {
       {/* Browse Workshops CTA - Only show on hero */}
       {step === 0 && (
         <section className="bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 Oder durchsuchen Sie alle Werkstätten
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-6">
+              <p className="text-gray-600 mb-6">
                 Entdecken Sie alle zertifizierten Reparaturwerkstätten in Zürich
               </p>
               <Link

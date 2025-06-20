@@ -2,37 +2,30 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { ChatBubbleLeftRightIcon, XMarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
-import { SparklesIcon, WrenchScrewdriverIcon, TagIcon, HomeIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/solid'
+import { QuestionMarkCircleIcon, WrenchScrewdriverIcon, TagIcon, HomeIcon } from '@heroicons/react/24/solid'
 import { CATEGORY_LABELS, SHOP_CATEGORIES } from '@/lib/constants/categories'
 
 interface Message {
   id: string
   text: string
-  sender: 'user' | 'ai'
+  sender: 'user' | 'assistant'
   timestamp: Date
-  shopSuggestions?: Array<{
-    id: string
-    name: string
-    category: string
-    address: string
-  }>
   categoryButtons?: boolean
 }
 
-export default function AiChat() {
+export default function RepairChat() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       text: 'Hallo! Was möchten Sie reparieren lassen? Wählen Sie eine Kategorie aus:',
-      sender: 'ai',
+      sender: 'assistant',
       timestamp: new Date(),
       categoryButtons: true
     }
   ])
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -43,9 +36,7 @@ export default function AiChat() {
     scrollToBottom()
   }, [messages])
 
-  const handleCategorySelect = async (category: string, categoryLabel: string) => {
-    setSelectedCategory(category)
-    
+  const handleCategorySelect = (category: string, categoryLabel: string) => {
     // Add user message showing selected category
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -57,61 +48,36 @@ export default function AiChat() {
     setMessages(prev => [...prev, userMessage])
     setIsTyping(true)
 
-    // Handle "something else" category differently
-    if (category === 'OTHER') {
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: 'Das ist toll, dass Sie Ihr Gerät reparieren möchten! 🔧 Auch wenn die Stadt Zürich für diese Kategorie aktuell keinen Reparaturbonus anbietet, gibt es bestimmt Werkstätten in Ihrer Nähe, die Ihnen helfen können. Reparieren ist immer besser als wegwerfen - Sie schonen damit die Umwelt und sparen Geld! Beschreiben Sie mir gerne, was kaputt ist, und ich kann Ihnen Tipps geben oder allgemeine Werkstätten empfehlen.',
-        sender: 'ai',
-        timestamp: new Date()
+    // Handle categories differently
+    setTimeout(() => {
+      if (category === 'OTHER') {
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: 'Das ist toll, dass Sie etwas reparieren möchten! 🔧 Auch wenn die Stadt Zürich für diese Kategorie aktuell keinen Reparaturbonus anbietet, gibt es bestimmt Werkstätten in Ihrer Nähe, die Ihnen helfen können. Reparieren ist immer besser als wegwerfen - Sie schonen damit die Umwelt und sparen Geld! Beschreiben Sie mir gerne, was kaputt ist, und ich kann Ihnen Tipps geben.',
+          sender: 'assistant',
+          timestamp: new Date()
+        }
+        setMessages(prev => [...prev, assistantMessage])
+      } else {
+        // For bonus-eligible categories, redirect to shops page
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: `Perfekt! Für ${categoryLabel} gibt es den Reparaturbonus von CHF 100. Ich leite Sie jetzt zu unseren qualifizierten Werkstätten weiter, wo Sie direkt Kontakt aufnehmen können.`,
+          sender: 'assistant',
+          timestamp: new Date()
+        }
+        setMessages(prev => [...prev, assistantMessage])
+        
+        // Redirect to shops page with category filter after a short delay
+        setTimeout(() => {
+          window.location.href = `/shops?category=${category.toUpperCase()}`
+        }, 1500)
       }
-      setMessages(prev => [...prev, aiMessage])
       setIsTyping(false)
-      return
-    }
-
-    // For bonus-eligible categories, proceed with AI chat
-    try {
-      const response = await fetch('/api/ai-chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: `Ich möchte etwas aus der Kategorie ${categoryLabel} reparieren lassen.`,
-          conversationHistory: messages,
-          category: category
-        }),
-      })
-
-      if (!response.ok) throw new Error('Failed to get AI response')
-
-      const data = await response.json()
-
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: data.response,
-        sender: 'ai',
-        timestamp: new Date(),
-        shopSuggestions: data.shopSuggestions
-      }
-
-      setMessages(prev => [...prev, aiMessage])
-    } catch (error) {
-      console.error('Error sending message:', error)
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: 'Entschuldigung, es gab ein Problem mit meiner Antwort. Bitte versuchen Sie es erneut.',
-        sender: 'ai',
-        timestamp: new Date()
-      }
-      setMessages(prev => [...prev, errorMessage])
-    } finally {
-      setIsTyping(false)
-    }
+    }, 800)
   }
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = () => {
     if (!inputText.trim()) return
 
     const userMessage: Message = {
@@ -122,47 +88,54 @@ export default function AiChat() {
     }
 
     setMessages(prev => [...prev, userMessage])
+    const currentInput = inputText
     setInputText('')
     setIsTyping(true)
 
-    try {
-      const response = await fetch('/api/ai-chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: inputText,
-          conversationHistory: messages,
-          category: selectedCategory
-        }),
-      })
+    // Simple response generation
+    setTimeout(() => {
+      const lowerMessage = currentInput.toLowerCase()
+      let responseText = ''
 
-      if (!response.ok) throw new Error('Failed to get AI response')
-
-      const data = await response.json()
-
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: data.response,
-        sender: 'ai',
-        timestamp: new Date(),
-        shopSuggestions: data.shopSuggestions
+      // Electronics repair
+      if (lowerMessage.includes('handy') || lowerMessage.includes('smartphone') || lowerMessage.includes('display') || lowerMessage.includes('bildschirm') || lowerMessage.includes('laptop') || lowerMessage.includes('computer')) {
+        responseText = 'Das klingt nach einem Elektronik-Problem! Für Elektronik-Reparaturen gibt es den CHF 100 Reparaturbonus. Ich empfehle Ihnen, direkt unsere spezialisierten Elektronik-Werkstätten zu kontaktieren.'
+      }
+      // Clothing repair
+      else if (lowerMessage.includes('kleidung') || lowerMessage.includes('jacke') || lowerMessage.includes('hose') || lowerMessage.includes('reissverschluss') || lowerMessage.includes('nähen')) {
+        responseText = 'Das ist ein Kleidungsreparatur! Auch dafür gibt es den CHF 100 Reparaturbonus. Unsere Schneidereibetriebe können Ihnen sicher weiterhelfen.'
+      }
+      // Shoe repair
+      else if (lowerMessage.includes('schuhe') || lowerMessage.includes('absatz') || lowerMessage.includes('sohle')) {
+        responseText = 'Schuhreparaturen sind sehr nachhaltig! Dafür gibt es ebenfalls den CHF 100 Reparaturbonus. Ich kann Ihnen gerne unsere Schuhmacher zeigen.'
+      }
+      // General repair advice
+      else if (lowerMessage.includes('reparatur') || lowerMessage.includes('kaputt') || lowerMessage.includes('defekt')) {
+        responseText = 'Reparieren ist immer eine gute Idee! 🛠️ Es spart Geld, schont die Umwelt und oft ist der Schaden nicht so schlimm wie gedacht. Können Sie mir mehr Details nennen? Was genau ist kaputt?'
+      }
+      // Cost questions
+      else if (lowerMessage.includes('kosten') || lowerMessage.includes('preis') || lowerMessage.includes('günstig')) {
+        responseText = 'Reparaturen kosten meist nur einen Bruchteil eines Neukaufs! Plus für Elektro, Kleidung und Schuhe gibt es CHF 100 Bonus von der Stadt Zürich. Die meisten Werkstätten bieten kostenlose Kostenvoranschläge an.'
+      }
+      // Environmental questions
+      else if (lowerMessage.includes('umwelt') || lowerMessage.includes('nachhaltig') || lowerMessage.includes('co2')) {
+        responseText = 'Reparieren ist super für die Umwelt! 🌱 Sie sparen damit durchschnittlich 70% der CO2-Emissionen einer Neuproduktion und vermeiden Abfall. Jede Reparatur ist ein Beitrag zum Umweltschutz!'
+      }
+      // Default response
+      else {
+        responseText = 'Interessant! Können Sie mir mehr Details erzählen? Je besser ich Ihr Problem verstehe, desto gezielter kann ich Ihnen helfen. Was genau ist kaputt oder funktioniert nicht richtig?'
       }
 
-      setMessages(prev => [...prev, aiMessage])
-    } catch (error) {
-      console.error('Error sending message:', error)
-      const errorMessage: Message = {
+      const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Entschuldigung, es gab ein Problem mit meiner Antwort. Bitte versuchen Sie es erneut.',
-        sender: 'ai',
+        text: responseText,
+        sender: 'assistant',
         timestamp: new Date()
       }
-      setMessages(prev => [...prev, errorMessage])
-    } finally {
+
+      setMessages(prev => [...prev, assistantMessage])
       setIsTyping(false)
-    }
+    }, 800)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -204,7 +177,7 @@ export default function AiChat() {
         >
           <ChatBubbleLeftRightIcon className="h-6 w-6" />
           <div className="absolute -top-12 right-0 bg-gray-900 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            Fragen Sie unseren AI-Assistenten
+            Reparatur-Beratung
           </div>
         </button>
       )}
@@ -216,10 +189,10 @@ export default function AiChat() {
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <div className="flex items-center space-x-2">
               <div className="p-2 bg-indigo-100 rounded-full">
-                <SparklesIcon className="h-5 w-5 text-indigo-600" />
+                <ChatBubbleLeftRightIcon className="h-5 w-5 text-indigo-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Reparatur-Assistent</h3>
+                <h3 className="font-semibold text-gray-900">Reparatur-Beratung</h3>
                 <p className="text-xs text-green-600">● Online</p>
               </div>
             </div>
@@ -281,25 +254,6 @@ export default function AiChat() {
                     </div>
                   )}
                   
-                  {/* Shop Suggestions */}
-                  {message.shopSuggestions && message.shopSuggestions.length > 0 && (
-                    <div className="mt-3 space-y-2">
-                      <p className="text-xs font-medium">Empfohlene Werkstätten:</p>
-                      {message.shopSuggestions.map((shop) => (
-                        <div key={shop.id} className="bg-white rounded-lg p-2 border border-gray-200">
-                          <h4 className="font-medium text-gray-900 text-xs">{shop.name}</h4>
-                          <p className="text-xs text-gray-600">{shop.category} • {shop.address}</p>
-                          <button 
-                            onClick={() => window.open(`/shops?search=${shop.name}`, '_blank')}
-                            className="text-xs text-indigo-600 hover:text-indigo-800 mt-1"
-                          >
-                            Details anzeigen →
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  
                   <p className="text-xs opacity-70 mt-1">{formatTime(message.timestamp)}</p>
                 </div>
               </div>
@@ -341,7 +295,7 @@ export default function AiChat() {
               </button>
             </div>
             <p className="text-xs text-gray-500 mt-2 text-center">
-              Powered by AI • Kostenlose Beratung
+              Kostenlose Beratung • Reparaturbonus verfügbar
             </p>
           </div>
         </div>

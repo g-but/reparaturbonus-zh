@@ -4,12 +4,15 @@ import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { ROUTES } from '@/lib/constants/routes'
+import { CATEGORY_LABELS, SHOP_CATEGORIES } from '@/lib/constants/categories'
 import Image from 'next/image'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
 export default function Header() {
   const { data: session } = useSession()
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [werkstattenDropdownOpen, setWerkstattenDropdownOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +34,23 @@ export default function Header() {
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false)
+  }
+
+  const getCategoryPath = (category: string) => {
+    return `/shops?category=${category.toUpperCase()}`
+  }
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case SHOP_CATEGORIES.ELECTRONICS:
+        return '🔧'
+      case SHOP_CATEGORIES.CLOTHING:
+        return '👔'
+      case SHOP_CATEGORIES.SHOES:
+        return '👞'
+      default:
+        return '🛠️'
+    }
   }
 
   return (
@@ -57,7 +77,7 @@ export default function Header() {
                 alt="Stadt Zürich Reparaturbonus"
                 width={scrolled ? 120 : 140}
                 height={scrolled ? 30 : 35}
-                className="transition-all duration-300 group-hover:opacity-80 object-contain sm:w-auto w-28"
+                className="transition-all duration-300 group-hover:opacity-80 object-contain w-28 sm:w-auto"
                 priority
               />
             </Link>
@@ -80,14 +100,61 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
-            <Link 
-              href={ROUTES.SHOPS} 
-              className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
-                scrolled ? 'text-sm' : 'text-sm lg:text-base'
-              }`}
+            {/* Werkstätten Dropdown - Fixed hover behavior */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setWerkstattenDropdownOpen(true)}
+              onMouseLeave={() => setWerkstattenDropdownOpen(false)}
             >
-              Werkstätten
-            </Link>
+              <Link 
+                href={ROUTES.SHOPS} 
+                className={`flex items-center space-x-1 text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap py-2 ${
+                  scrolled ? 'text-sm' : 'text-sm lg:text-base'
+                }`}
+              >
+                <span>Werkstätten</span>
+                <ChevronDownIcon className={`h-4 w-4 transition-transform duration-200 ${werkstattenDropdownOpen ? 'rotate-180' : ''}`} />
+              </Link>
+
+              {/* Dropdown Menu - No gap, proper megamenu */}
+              <div className={`absolute top-full left-0 w-72 bg-white rounded-lg shadow-xl border border-gray-200 py-3 transition-all duration-200 ${
+                werkstattenDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'
+              }`}>
+                <div className="px-3">
+                  <Link
+                    href={ROUTES.SHOPS}
+                    className="flex items-center px-3 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors rounded-lg"
+                  >
+                    <span className="text-lg mr-3">🏪</span>
+                    <div>
+                      <div className="font-medium">Alle Werkstätten</div>
+                      <div className="text-xs text-gray-500">Gesamte Übersicht</div>
+                    </div>
+                  </Link>
+                  
+                  <div className="border-t border-gray-100 my-2"></div>
+                  
+                  <div className="mb-3">
+                    <div className="px-3 py-1 text-xs font-semibold text-green-600 uppercase tracking-wide">
+                      Mit Reparaturbonus (CHF 100)
+                    </div>
+                    {[SHOP_CATEGORIES.ELECTRONICS, SHOP_CATEGORIES.CLOTHING, SHOP_CATEGORIES.SHOES].map((category) => (
+                      <Link
+                        key={category}
+                        href={getCategoryPath(category)}
+                        className="flex items-center px-3 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg"
+                      >
+                        <span className="text-lg mr-3">{getCategoryIcon(category)}</span>
+                        <div className="flex-1">
+                          <div className="font-medium text-sm">{CATEGORY_LABELS[category]}</div>
+                        </div>
+                        <div className="text-xs text-green-600 font-medium">CHF 100</div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <Link 
               href={ROUTES.HOW_IT_WORKS} 
@@ -96,6 +163,15 @@ export default function Header() {
               }`}
             >
               Anleitung
+            </Link>
+
+            <Link 
+              href="/warum-reparieren" 
+              className={`text-gray-700 hover:text-indigo-600 font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap ${
+                scrolled ? 'text-sm' : 'text-sm lg:text-base'
+              }`}
+            >
+              Warum reparieren?
             </Link>
 
             {session ? (
@@ -170,6 +246,24 @@ export default function Header() {
               >
                 Reparaturwerkstätten
               </Link>
+              
+              {/* Mobile category submenu */}
+              <div className="pl-4 space-y-2">
+                <div className="text-xs font-semibold text-green-600 uppercase tracking-wide mb-2">
+                  Mit Bonus (CHF 100)
+                </div>
+                {[SHOP_CATEGORIES.ELECTRONICS, SHOP_CATEGORIES.CLOTHING, SHOP_CATEGORIES.SHOES].map((category) => (
+                  <Link
+                    key={category}
+                    href={getCategoryPath(category)}
+                    className="flex items-center text-gray-600 hover:text-green-600 transition-colors duration-200 py-1"
+                    onClick={closeMobileMenu}
+                  >
+                    <span className="mr-2">{getCategoryIcon(category)}</span>
+                    <span className="text-sm">{CATEGORY_LABELS[category]}</span>
+                  </Link>
+                ))}
+              </div>
 
               <Link 
                 href={ROUTES.HOW_IT_WORKS} 
@@ -177,6 +271,14 @@ export default function Header() {
                 onClick={closeMobileMenu}
               >
                 Wie es funktioniert
+              </Link>
+
+              <Link 
+                href="/warum-reparieren" 
+                className="block text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 py-2"
+                onClick={closeMobileMenu}
+              >
+                Warum reparieren?
               </Link>
 
               {session ? (

@@ -20,6 +20,7 @@ All documentation in this project follows these standards:
 
 ### Feature Implementation
 - **[how-it-works-implementation.md](./how-it-works-implementation.md)** - Comprehensive implementation of the "How It Works" page with AI chat enhancement and category selection interface
+- **[warum-reparieren-page-implementation.md](./warum-reparieren-page-implementation.md)** - Professional "Why Repair?" page with Swiss research focus, interactive elements, verified sources, and progressive disclosure design
 
 ### Language & Content Standards
 - **[language-consistency-update.md](./language-consistency-update.md)** - Homepage language alignment with Andreas's approved inclusive language standards and terminology consistency
@@ -32,7 +33,8 @@ All documentation in this project follows these standards:
 ### 2025-01-03
 - **language-consistency-update.md** - Language standardization across application
 - **how-it-works-implementation.md** - Updated to reflect application-wide language standards
-- **README.md** (this file) - Documentation index creation
+- **warum-reparieren-page-implementation.md** - Comprehensive "Why Repair?" page implementation
+- **README.md** (this file) - Documentation index creation and updates
 
 ## Key Standards Established
 

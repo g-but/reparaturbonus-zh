@@ -281,18 +281,18 @@ export default function ShopsPage() {
         </div>
       )}
 
-      {/* AI Suggestions Section */}
-      {aiSuggestions && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-indigo-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-              
-              {/* Problem Analysis */}
-              <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-blue-100">
-                <div className="flex items-center mb-3 sm:mb-4">
-                  <LightBulbIcon className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-500 mr-2" />
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-900">Analyse Ihres Problems</h3>
-                </div>
+                {/* Repair Info Section */}
+          {aiSuggestions && (
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-indigo-100">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+                  
+                  {/* Repair Information */}
+                  <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-blue-100">
+                    <div className="flex items-center mb-3 sm:mb-4">
+                      <LightBulbIcon className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-500 mr-2" />
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900">Reparatur-Informationen</h3>
+                    </div>
                 
                 <div className="space-y-3 sm:space-y-4">
                   <div>
@@ -419,7 +419,7 @@ export default function ShopsPage() {
 
             {/* Category Pills - Always Visible on Desktop, Collapsible on Mobile */}
             <div className={`mt-4 ${showFilters ? 'block' : 'hidden lg:block'}`}>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 overflow-x-auto pb-2">
                 {categories.map(category => (
                   <button
                     key={category}
@@ -459,7 +459,7 @@ export default function ShopsPage() {
           </div>
 
           {/* Shops Grid */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {filteredShops.map((shop) => (
               <div key={shop.id} className="bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-200 overflow-hidden group flex flex-col h-full">
                 {/* Shop Header */}
@@ -480,7 +480,7 @@ export default function ShopsPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-3 mb-4 min-h-[120px] flex flex-col">
+                  <div className="space-y-3 mb-4 min-h-[100px] sm:min-h-[120px] flex flex-col">
                     {shop.description && (
                       <p className="text-gray-600 text-sm line-clamp-3 flex-1">{shop.description}</p>
                     )}
@@ -489,7 +489,7 @@ export default function ShopsPage() {
                     <div className="space-y-2">
                       <div className="flex items-start text-sm text-gray-600">
                         <MapPinIcon className="h-4 w-4 mt-0.5 mr-2 flex-shrink-0 text-gray-400" />
-                        <span className="line-clamp-1">{shop.address}, {shop.postalCode} {shop.city}</span>
+                        <span className="line-clamp-2 sm:line-clamp-1">{shop.address}, {shop.postalCode} {shop.city}</span>
                       </div>
 
                       <div className="flex items-center justify-between text-sm">

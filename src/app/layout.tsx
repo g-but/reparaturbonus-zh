@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import SessionProviderWrapper from "@/components/providers/session-provider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import AiChat from "@/components/ui/AiChat";
+import SessionProviderWrapper from "@/components/providers/session-provider";
+import RepairChat from "@/components/ui/AiChat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Reparaturbonus Zürich",
-  description: "Finden Sie die beste Reparaturwerkstatt in Zürich und erhalten Sie bis zu CHF 100 Bonus.",
+  title: "Reparaturbonus Zürich - Reparieren statt wegwerfen",
+  description: "Finden Sie die beste Werkstatt in Zürich und nutzen Sie CHF 100 Reparaturbonus der Stadt. Nachhaltig, günstig und umweltfreundlich.",
   icons: {
     icon: [
       { url: "/logo/favicon_emblem_final (1).ico", sizes: "any" },
@@ -48,7 +48,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
-          <AiChat />
+          <RepairChat />
         </SessionProviderWrapper>
       </body>
     </html>
