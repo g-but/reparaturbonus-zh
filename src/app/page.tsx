@@ -2,16 +2,35 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { MagnifyingGlassIcon, GiftIcon, CameraIcon, WrenchScrewdriverIcon, SparklesIcon, ArrowRightIcon, CheckCircleIcon, CurrencyDollarIcon, BuildingStorefrontIcon } from '@heroicons/react/24/outline'
 import { ROUTES } from '@/lib/constants/routes'
+import { SHOP_CATEGORIES, CATEGORY_LABELS } from '@/lib/constants/categories'
 
+// Use existing category constants instead of hardcoded values
 const REPAIR_CATEGORIES = [
-  { id: 'electronics', label: 'Elektro und Elektronik', icon: '📱', examples: ['Smartphone', 'Laptop', 'Tablet', 'Kopfhörer', 'Kaffeemaschine', 'Toaster'] },
-  { id: 'clothing', label: 'Kleidung', icon: '👕', examples: ['Jacke', 'Hose', 'T-Shirt', 'Tasche'] },
-  { id: 'shoes', label: 'Schuhe', icon: '👟', examples: ['Sneaker', 'Stiefel', 'Sandalen', 'Absätze'] }
+  { 
+    id: SHOP_CATEGORIES.ELECTRONICS, 
+    label: CATEGORY_LABELS.ELECTRONICS, 
+    icon: '📱', 
+    examples: ['Smartphone', 'Laptop', 'Tablet', 'Kopfhörer', 'Kaffeemaschine', 'Toaster'] 
+  },
+  { 
+    id: SHOP_CATEGORIES.CLOTHING, 
+    label: CATEGORY_LABELS.CLOTHING, 
+    icon: '👕', 
+    examples: ['Jacke', 'Hose', 'T-Shirt', 'Tasche'] 
+  },
+  { 
+    id: SHOP_CATEGORIES.SHOES, 
+    label: CATEGORY_LABELS.SHOES, 
+    icon: '👟', 
+    examples: ['Sneaker', 'Stiefel', 'Sandalen', 'Absätze'] 
+  }
 ]
 
 export default function Home() {
+  const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState('')
   const [itemDescription, setItemDescription] = useState('')
   const [problemDescription, setProblemDescription] = useState('')
@@ -28,11 +47,17 @@ export default function Home() {
   }
 
   const handleSubmitRepair = () => {
-    window.location.href = `/shops?category=${selectedCategory}&search=${itemDescription}&problem=${problemDescription}`
+    // Use Next.js router instead of direct window.location for SPA navigation
+    const params = new URLSearchParams({
+      category: selectedCategory,
+      search: itemDescription,
+      ...(problemDescription && { problem: problemDescription })
+    })
+    router.push(`${ROUTES.SHOPS}?${params.toString()}`)
   }
 
   const handleSkipToShops = () => {
-    window.location.href = '/shops'
+    router.push(ROUTES.SHOPS)
   }
 
   return (
@@ -54,20 +79,20 @@ export default function Home() {
                 {/* Main Headline */}
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
                   <span className="text-indigo-600">Reparieren</span> statt
-                  <span className="block">wegwerfen</span>
+                  <span className="block">Entsorgen</span>
                 </h1>
 
                 {/* Subtitle */}
                 <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-                  Finden Sie die beste Werkstatt in Zürich, sparen Sie bis zu 70% gegenüber Neukauf
-                  und nutzen Sie CHF 100 Reparaturbonus der Stadt.
+                  Kaputtes Gerät, Loch in Kleid oder Schuh?<br />Finden Sie die passende Werkstatt in Zürich
+                  und nutzen Sie mit bis zu 100 Franken den Reparaturbonus der Stadt.
                 </p>
 
                 {/* Value Props */}
                 <div className="flex flex-wrap justify-center items-center gap-8 mb-12 text-sm">
                   <div className="flex items-center text-gray-600">
                     <CurrencyDollarIcon className="h-5 w-5 text-green-500 mr-2" />
-                    <span>Bis zu 70% sparen</span>
+                    <span>Bis zu 50% Ermässigung</span>
                   </div>
                   <div className="flex items-center text-gray-600">
                     <SparklesIcon className="h-5 w-5 text-blue-500 mr-2" />
@@ -75,7 +100,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center text-gray-600">
                     <CheckCircleIcon className="h-5 w-5 text-indigo-500 mr-2" />
-                    <span>Zertifizierte Werkstätten</span>
+                    <span>Zuverlässige Werkstätten</span>
                   </div>
                 </div>
 
@@ -95,10 +120,6 @@ export default function Home() {
                     Alle Werkstätten
                   </button>
                 </div>
-
-                <p className="text-sm text-gray-500 mt-4">
-                  Kostenlos • Keine Anmeldung erforderlich • CHF 100 Reparaturbonus garantiert
-                </p>
               </div>
             </div>
 
@@ -119,8 +140,8 @@ export default function Home() {
                   <div className="text-sm text-gray-600">Werkstätten</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-green-600">70%</div>
-                  <div className="text-sm text-gray-600">Durchschn. Ersparnis</div>
+                  <div className="text-2xl font-bold text-green-600">50%</div>
+                  <div className="text-sm text-gray-600">Max. Ermässigung</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-purple-600">CHF 100</div>
@@ -180,7 +201,7 @@ export default function Home() {
                   Zurück
                 </button>
                 <Link
-                  href="/shops"
+                  href={ROUTES.SHOPS}
                   className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                   <MagnifyingGlassIcon className="h-5 w-5 mr-2" />
@@ -242,7 +263,7 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Photo Upload */}
+              {/* Photo Upload Placeholder */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <CameraIcon className="h-4 w-4 inline mr-1" />
@@ -296,7 +317,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">So einfach funktioniert's</h2>
             <p className="text-xl text-gray-600">In 3 Schritten zu Ihrer Reparatur mit Bonus</p>
           </div>
-
+            
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="mx-auto w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
@@ -314,17 +335,17 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Werkstatt auswählen</h3>
               <p className="text-gray-600">
-                Erhalten Sie passende Werkstätten in Ihrer Nähe mit Bewertungen und Preisen
+                Lassen Sie sich passende Werkstätten in Ihrer Nähe anzeigen und bringen ihren Gegenstand in die ausgewählte Werkstatt
               </p>
             </div>
-
+            
             <div className="text-center">
               <div className="mx-auto w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-2xl font-bold text-yellow-600">3</span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">CHF 100 Reparaturbonus</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Reparaturbonus erstellen</h3>
               <p className="text-gray-600">
-                Nach der Reparatur wird CHF 100 von der Rechnung abgezogen
+                Melden Sie sich hier an und Generieren Sie ihren Reparaturbonus
               </p>
             </div>
           </div>
@@ -347,7 +368,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Reparieren statt wegwerfen
+                Reparieren statt entsorgen
               </h2>
               <p className="text-xl text-gray-600">Gut für Ihren Geldbeutel und die Umwelt</p>
             </div>
@@ -357,9 +378,9 @@ export default function Home() {
                 <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                   <span className="text-3xl">💰</span>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bis zu 70% sparen</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bis zu 50% sparen</h3>
                 <p className="text-gray-600">
-                  Reparaturen kosten oft nur einen Bruchteil des Neukaufs
+                  Durch den Reparaturbonus kostet die Reparatur bis zu 50% (maximal 100 Franken) weniger
                 </p>
               </div>
 
@@ -367,9 +388,9 @@ export default function Home() {
                 <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                   <span className="text-3xl">🌍</span>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">CO2 reduzieren</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">CO<sub>2</sub> reduzieren</h3>
                 <p className="text-gray-600">
-                  Reparaturen sparen durchschnittlich 70% der CO2-Emissionen einer Neuproduktion
+                  Reparaturen sparen gegenüber einem Neukauf Treibhausgas-Emissionen
                 </p>
               </div>
 
@@ -379,7 +400,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Abfall vermeiden</h3>
                 <p className="text-gray-600">
-                  Weniger Elektroschrott und Müll für eine saubere Zukunft
+                  Ressourcen schonen dank längerer Nutzung der Gegenstände
                 </p>
               </div>
             </div>
@@ -398,39 +419,12 @@ export default function Home() {
                 </h2>
                 <p className="text-xl text-slate-300 mb-8 leading-relaxed">
                   Werden Sie Teil des Reparatur-Netzwerks und helfen Sie dabei, 
-                  Zürich nachhaltiger zu machen. Erreichen Sie neue Kunden und 
-                  profitieren Sie von unserem Bonus-System.
+                  Zürich nachhaltiger zu machen, erreichen Sie neue Kund*innen
                 </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                  <div className="text-center">
-                    <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl">🔧</span>
-                    </div>
-                    <h3 className="font-semibold text-white mb-2">Neue Kunden</h3>
-                    <p className="text-sm text-slate-300">Erreichen Sie Kunden in ganz Zürich</p>
-                  </div>
-                  
-                  <div className="text-center">
-                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl">💰</span>
-                    </div>
-                    <h3 className="font-semibold text-white mb-2">Mehr Umsatz</h3>
-                    <p className="text-sm text-slate-300">Profitieren Sie vom Bonus-System</p>
-                  </div>
-                  
-                  <div className="text-center">
-                    <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl">🌟</span>
-                    </div>
-                    <h3 className="font-semibold text-white mb-2">Kostenlos</h3>
-                    <p className="text-sm text-slate-300">Keine Anmeldegebühren oder Provisionen</p>
-                  </div>
-                </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="/shop-onboarding"
+                    href={ROUTES.SHOP_ONBOARDING}
                     className="inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl group"
                   >
                     <BuildingStorefrontIcon className="h-6 w-6 mr-3" />
@@ -457,7 +451,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="text-white font-medium mb-1">Grunddaten eingeben</h4>
-                        <p className="text-slate-300 text-sm">Nur 3 Minuten für Name, Kategorie und Kontakt</p>
+                        <p className="text-slate-300 text-sm">alle Pflicht-Formularfelder ausfüllen</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -488,13 +482,6 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  
-                  <div className="mt-8 p-4 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 rounded-xl border border-amber-400/30">
-                    <p className="text-amber-100 text-sm font-medium flex items-start">
-                      <span className="text-lg mr-2">💡</span>
-                      <span><strong>"Frühanmelder-Vorteil:"</strong> Die ersten 50 Werkstätten erhalten bevorzugten Support und extra Sichtbarkeit!</span>
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -517,7 +504,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="font-semibold text-white mb-2">Zielgruppe erreichen</h4>
-                        <p className="text-slate-300">Kunden, die bewusst reparieren statt neu kaufen möchten</p>
+                        <p className="text-slate-300">Kund*innen, die bewusst reparieren statt neu kaufen möchten</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -526,7 +513,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="font-semibold text-white mb-2">CHF 100 Bonus-System</h4>
-                        <p className="text-slate-300">Kunden erhalten Bonus für Reparaturen - mehr Motivation zu reparieren</p>
+                        <p className="text-slate-300">Kund*innen erhalten Bonus für Reparaturen - mehr Motivation zu reparieren</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -535,7 +522,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="font-semibold text-white mb-2">Moderne Plattform</h4>
-                        <p className="text-slate-300">Einfache Online-Terminbuchung und Kundenkommunikation</p>
+                        <p className="text-slate-300">Benutzerfreundliche Online-Präsenz für bessere Auffindbarkeit</p>
                       </div>
                     </div>
                   </div>
@@ -549,8 +536,8 @@ export default function Home() {
                         <CheckCircleIcon className="w-4 h-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-white mb-2">Gewerbeberechtigung</h4>
-                        <p className="text-slate-300">Gültige Gewerbeanmeldung oder Handwerksberechtigung</p>
+                        <h4 className="font-semibold text-white mb-2">In der Stadt</h4>
+                        <p className="text-slate-300">Abgabestelle in der Stadt Zürich</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -558,17 +545,8 @@ export default function Home() {
                         <CheckCircleIcon className="w-4 h-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-white mb-2">Versicherung</h4>
-                        <p className="text-slate-300">Betriebshaftpflichtversicherung empfohlen</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-4 mt-1">
-                        <CheckCircleIcon className="w-4 h-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-white mb-2">Standort Zürich</h4>
-                        <p className="text-slate-300">Werkstatt oder Service im Raum Zürich</p>
+                        <h4 className="font-semibold text-white mb-2">Reparatur in der Schweiz</h4>
+                        <p className="text-slate-300">Reparaturen müssen in der Schweiz durchgeführt werden</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -577,7 +555,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="font-semibold text-white mb-2">Qualitätsstandards</h4>
-                        <p className="text-slate-300">Bereitschaft zu fairen Preisen und hoher Servicequalität</p>
+                        <p className="text-slate-300">Nachvollziehbare Preisen und verlässliche Servicequalität</p>
                       </div>
                     </div>
                   </div>
@@ -586,14 +564,14 @@ export default function Home() {
               
               <div className="mt-12 pt-8 border-t border-white/20">
                 <div className="text-center">
-                  <h3 className="text-2xl font-semibold text-white mb-4">Bereit durchzustarten?</h3>
-                  <p className="text-slate-300 mb-8 text-lg">Die Anmeldung dauert nur wenige Minuten und ist komplett kostenlos.</p>
+                  <h3 className="text-2xl font-semibold text-white mb-4">Bereit loszulegen?</h3>
+                  <p className="text-slate-300 mb-8 text-lg">Die Anmeldung dauert nur wenige Minuten und ist kostenlos.</p>
                   <Link
-                    href="/shop-onboarding"
+                    href={ROUTES.SHOP_ONBOARDING}
                     className="inline-flex items-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                   >
                     <BuildingStorefrontIcon className="h-6 w-6 mr-3" />
-                    Jetzt kostenlos anmelden
+                    Jetzt anmelden
                   </Link>
                 </div>
               </div>
@@ -611,7 +589,7 @@ export default function Home() {
                 Oder durchsuchen Sie alle Werkstätten
               </h2>
               <p className="text-gray-600 mb-6">
-                Entdecken Sie alle zertifizierten Reparaturwerkstätten in Zürich
+                Entdecken Sie alle beteiligten Reparaturwerkstätten in Zürich
               </p>
               <Link
                 href={ROUTES.SHOPS}
