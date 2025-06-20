@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import AdminAuthGuard from '@/components/admin/auth-guard'
+
+// Disable static generation for this page
+export const dynamic = 'force-dynamic'
 import { 
   UsersIcon, 
   ShoppingBagIcon, 
@@ -29,7 +32,14 @@ interface RecentActivity {
 }
 
 export default function AdminDashboard() {
-  const { data: session } = useSession()
+  // Add error handling for session provider
+  let session = null
+  try {
+    const sessionData = useSession()
+    session = sessionData.data
+  } catch (error) {
+    console.log('Session provider not available in admin')
+  }
   const [stats, setStats] = useState<AdminStats | null>(null)
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([])
   const [loading, setLoading] = useState(true)

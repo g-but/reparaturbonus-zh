@@ -1,5 +1,8 @@
 'use client'
 
+// Disable static generation for this page
+export const dynamic = 'force-dynamic'
+
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -27,7 +30,17 @@ interface BonusCode {
 }
 
 export default function Dashboard() {
-  const { data: session, status } = useSession()
+  // Add error handling for session provider
+  let session = null
+  let status = 'unauthenticated'
+  try {
+    const sessionData = useSession()
+    session = sessionData.data
+    status = sessionData.status
+  } catch (error) {
+    console.log('Session provider not available in dashboard')
+  }
+  
   const router = useRouter()
   const [bonusCodes, setBonusCodes] = useState<BonusCode[]>([])
   const [loading, setLoading] = useState(true)
