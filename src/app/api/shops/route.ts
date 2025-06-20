@@ -4,15 +4,15 @@ import { prisma } from '@/lib/db'
 // Mock data for when database is unavailable
 const mockShops = [
   {
-    id: 'mock-1',
-    name: 'Revamp-IT',
+    id: 'elektronikrep',
+    name: 'ElektronikRep',
     description: 'Spezialist für Elektronik-Reparaturen in Zürich. Wir reparieren Smartphones, Laptops, Tablets und mehr.',
     address: 'Bahnhofstrasse 45',
     city: 'Zürich',
     postalCode: '8001',
     phone: '+41 44 123 45 67',
-    email: 'info@revamp-it.ch',
-    website: 'https://revamp-it.ch',
+    email: 'info@elektronikrep.shop',
+    website: 'https://elektronikrep.shop',
     category: 'ELECTRONICS',
     latitude: 47.3769,
     longitude: 8.5417,
@@ -22,15 +22,15 @@ const mockShops = [
     openingHours: 'Mo-Fr: 9:00-18:00, Sa: 9:00-16:00'
   },
   {
-    id: 'mock-2',
+    id: 'schneiderei-mueller',
     name: 'Schneiderei Müller',
-    description: 'Traditionelle Schneiderei mit über 30 Jahren Erfahrung. Änderungen, Reparaturen und Maßanfertigungen.',
+    description: 'Traditionelle Schneiderei mit über 30 Jahren Erfahrung. Änderungen, Reparaturen und Massanfertigungen.',
     address: 'Langstrasse 89',
     city: 'Zürich',
     postalCode: '8004',
     phone: '+41 44 987 65 43',
     email: 'info@schneiderei-mueller.ch',
-    website: null,
+    website: 'https://schneiderei-mueller.ch',
     category: 'CLOTHING',
     latitude: 47.3769,
     longitude: 8.5417,
@@ -40,7 +40,7 @@ const mockShops = [
     openingHours: 'Mo-Fr: 8:00-18:00, Sa: 8:00-14:00'
   },
   {
-    id: 'mock-3',
+    id: 'schuh-meister',
     name: 'Schuh-Reparatur Meister',
     description: 'Traditionelle Schuhmacherei mit moderner Ausstattung. Wir reparieren alle Arten von Schuhen.',
     address: 'Limmatstrasse 152',

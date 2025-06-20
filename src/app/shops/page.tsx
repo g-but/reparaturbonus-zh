@@ -252,29 +252,29 @@ export default function ShopsPage() {
       {/* Repair Details Banner */}
       {(repairDetails.category || repairDetails.search) && (
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
               <div>
                 <div className="flex items-center space-x-2 mb-2">
-                  <SparklesIcon className="h-5 w-5" />
-                  <h3 className="text-lg font-semibold">Ihre Reparaturanfrage</h3>
+                  <SparklesIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <h3 className="text-base sm:text-lg font-semibold">Ihre Reparaturanfrage</h3>
                 </div>
-                <div className="flex items-center space-x-6 text-indigo-100">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-6 text-indigo-100">
                   {repairDetails.search && (
-                    <span className="text-sm">
+                    <span className="text-xs sm:text-sm">
                       <strong>Gegenstand:</strong> {repairDetails.search}
                     </span>
                   )}
                   {repairDetails.category && (
-                    <span className="text-sm">
+                    <span className="text-xs sm:text-sm">
                       <strong>Kategorie:</strong> {getCategoryDisplayName(repairDetails.category)}
                     </span>
                   )}
                 </div>
               </div>
-              <div className="text-center bg-white/10 rounded-xl p-4">
-                <div className="text-2xl font-bold">CHF 100</div>
-                <div className="text-sm text-indigo-200">Bonus verfügbar</div>
+              <div className="text-center bg-white/10 rounded-xl p-3 sm:p-4">
+                <div className="text-xl sm:text-2xl font-bold">CHF 100</div>
+                <div className="text-xs sm:text-sm text-indigo-200">Bonus verfügbar</div>
               </div>
             </div>
           </div>
@@ -284,20 +284,20 @@ export default function ShopsPage() {
       {/* AI Suggestions Section */}
       {aiSuggestions && (
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-indigo-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="grid md:grid-cols-2 gap-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
               
               {/* Problem Analysis */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100">
-                <div className="flex items-center mb-4">
-                  <LightBulbIcon className="h-6 w-6 text-yellow-500 mr-2" />
-                  <h3 className="text-lg font-semibold text-gray-900">Analyse Ihres Problems</h3>
+              <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-blue-100">
+                <div className="flex items-center mb-3 sm:mb-4">
+                  <LightBulbIcon className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-500 mr-2" />
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900">Analyse Ihres Problems</h3>
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Mögliche Ursachen:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <h4 className="text-sm sm:text-base font-medium text-gray-900 mb-2">Mögliche Ursachen:</h4>
+                    <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
                       {aiSuggestions.likelyIssues.slice(0, 3).map((issue: string, index: number) => (
                         <li key={index} className="flex items-start">
                           <span className="text-indigo-500 mr-2">•</span>
@@ -308,8 +308,8 @@ export default function ShopsPage() {
                   </div>
                   
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Lösungsansätze:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <h4 className="text-sm sm:text-base font-medium text-gray-900 mb-2">Lösungsansätze:</h4>
+                    <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
                       {aiSuggestions.possibleSolutions.slice(0, 3).map((solution: string, index: number) => (
                         <li key={index} className="flex items-start">
                           <span className="text-green-500 mr-2">•</span>
@@ -322,48 +322,48 @@ export default function ShopsPage() {
               </div>
 
               {/* Cost Savings */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-green-100">
-                <div className="flex items-center mb-4">
-                  <BanknotesIcon className="h-6 w-6 text-green-500 mr-2" />
-                  <h3 className="text-lg font-semibold text-gray-900">Ihre Ersparnis</h3>
+              <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-green-100">
+                <div className="flex items-center mb-3 sm:mb-4">
+                  <BanknotesIcon className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 mr-2" />
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900">Ihre Ersparnis</h3>
                 </div>
                 
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center p-3 bg-green-50 rounded-lg">
-                      <div className="text-lg font-bold text-green-600">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                    <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
+                      <div className="text-sm sm:text-lg font-bold text-green-600">
                         CHF {aiSuggestions.estimatedRepairCost.min}-{aiSuggestions.estimatedRepairCost.max}
                       </div>
                       <div className="text-xs text-gray-600">Reparaturkosten</div>
                     </div>
-                    <div className="text-center p-3 bg-red-50 rounded-lg">
-                      <div className="text-lg font-bold text-red-600">
+                    <div className="text-center p-2 sm:p-3 bg-red-50 rounded-lg">
+                      <div className="text-sm sm:text-lg font-bold text-red-600">
                         CHF {aiSuggestions.estimatedNewCost.min}-{aiSuggestions.estimatedNewCost.max}
                       </div>
                       <div className="text-xs text-gray-600">Neukauf</div>
                     </div>
                   </div>
                   
-                  <div className="text-center p-4 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg">
-                    <div className="text-2xl font-bold">
+                  <div className="text-center p-3 sm:p-4 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg">
+                    <div className="text-xl sm:text-2xl font-bold">
                       {aiSuggestions.savingsPercentage}% sparen
                     </div>
-                    <div className="text-sm opacity-90">durch Reparatur statt Neukauf</div>
+                    <div className="text-xs sm:text-sm opacity-90">durch Reparatur statt Neukauf</div>
                   </div>
                   
                   {/* Environmental Impact */}
                   <div className="pt-4 border-t border-gray-100">
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center">
-                      <SparklesIcon className="h-4 w-4 text-green-500 mr-1" />
+                    <h4 className="text-sm sm:text-base font-medium text-gray-900 mb-2 flex items-center">
+                      <SparklesIcon className="h-3 w-3 sm:h-4 sm:w-4 text-green-500 mr-1" />
                       Umwelt-Bonus
                     </h4>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      <div className="text-center p-2 bg-blue-50 rounded">
-                        <div className="font-medium text-blue-600">{aiSuggestions.environmentalImpact.co2Saved}</div>
+                    <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                      <div className="text-center p-1.5 sm:p-2 bg-blue-50 rounded">
+                        <div className="text-xs sm:text-sm font-medium text-blue-600">{aiSuggestions.environmentalImpact.co2Saved}</div>
                         <div className="text-xs text-gray-600">CO2 gespart</div>
                       </div>
-                      <div className="text-center p-2 bg-green-50 rounded">
-                        <div className="font-medium text-green-600">{aiSuggestions.environmentalImpact.wasteAvoided}</div>
+                      <div className="text-center p-1.5 sm:p-2 bg-green-50 rounded">
+                        <div className="text-xs sm:text-sm font-medium text-green-600">{aiSuggestions.environmentalImpact.wasteAvoided}</div>
                         <div className="text-xs text-gray-600">Abfall vermieden</div>
                       </div>
                     </div>
@@ -377,9 +377,9 @@ export default function ShopsPage() {
 
       {/* Hero Section */}
       <div className="relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {repairDetails.search 
                 ? `Werkstätten für Ihre ${repairDetails.search}-Reparatur` 
                 : "Zertifizierte Reparaturwerkstätten in Zürich"

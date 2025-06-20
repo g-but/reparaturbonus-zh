@@ -1,27 +1,25 @@
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg'
-  className?: string
   text?: string
+  className?: string
 }
 
 export default function LoadingSpinner({ 
   size = 'md', 
-  className = '', 
-  text = 'Laden...' 
+  text = 'Lädt...', 
+  className = '' 
 }: LoadingSpinnerProps) {
   const sizeClasses = {
-    sm: 'h-4 w-4',
-    md: 'h-8 w-8',
-    lg: 'h-12 w-12'
+    sm: 'h-8 w-8',
+    md: 'h-12 w-12', 
+    lg: 'h-16 w-16'
   }
 
   return (
-    <div className={`flex flex-col items-center justify-center ${className}`}>
-      <div 
-        className={`animate-spin rounded-full border-b-2 border-indigo-500 ${sizeClasses[size]}`}
-      />
+    <div className={`flex flex-col items-center justify-center space-y-4 ${className}`}>
+      <div className={`animate-spin rounded-full border-4 border-gray-200 border-t-indigo-600 ${sizeClasses[size]}`}></div>
       {text && (
-        <p className="mt-4 text-gray-600 text-sm">{text}</p>
+        <p className="text-gray-600 font-medium">{text}</p>
       )}
     </div>
   )

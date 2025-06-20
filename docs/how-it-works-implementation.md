@@ -1,8 +1,8 @@
 # How It Works Page Implementation
 
 **Created Date:** 2024-12-19  
-**Last Modified Date:** 2024-12-19  
-**Last Modified Summary:** Enhanced AI chat with category selection interface and added fourth "something else" category with positive reinforcement messaging for non-bonus eligible repairs.
+**Last Modified Date:** 2025-01-03  
+**Last Modified Summary:** Language standards from this page have been applied across the application (homepage) for consistent inclusive language and terminology. See docs/language-consistency-update.md for details.
 
 ## Overview
 

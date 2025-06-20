@@ -92,7 +92,7 @@ export default function Footer() {
 
         <div className="mt-8 pt-8 border-t border-gray-700">
           <p className="text-center text-gray-400 text-sm">
-            © 2024 Stadt Zürich. Alle Rechte vorbehalten.
+            © 2025 Stadt Zürich. Alle Rechte vorbehalten.
           </p>
         </div>
       </div>
