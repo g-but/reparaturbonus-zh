@@ -382,11 +382,11 @@ export default function ShopsPage() {
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {repairDetails.search 
                 ? `Werkstätten für Ihre ${repairDetails.search}-Reparatur` 
-                : "Zertifizierte Reparaturwerkstätten in Zürich"
+                : "Zugelassene Vertrags-Reparaturwerkstätten in Zürich"
               }
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Finden Sie die perfekte Werkstatt für Ihre Reparatur und erhalten Sie CHF 100 Bonus
+              Finden Sie die passende Werkstatt für Ihre Reparatur und erhalten Sie CHF 100 Bonus
             </p>
           </div>
 

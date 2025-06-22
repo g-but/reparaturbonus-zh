@@ -131,29 +131,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Trust Indicators */}
-          <section className="bg-white border-y border-gray-100">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 items-center text-center">
-                <div>
-                  <div className="text-2xl font-bold text-indigo-600">8+</div>
-                  <div className="text-sm text-gray-600">Werkstätten</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-green-600">50%</div>
-                  <div className="text-sm text-gray-600">Max. Ermässigung</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-purple-600">CHF 100</div>
-                  <div className="text-sm text-gray-600">Reparaturbonus</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">24h</div>
-                  <div className="text-sm text-gray-600">Schnelle Antwort</div>
-                </div>
-              </div>
-            </div>
-          </section>
         </>
       )}
 
@@ -323,9 +300,9 @@ export default function Home() {
               <div className="mx-auto w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-2xl font-bold text-indigo-600">1</span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Reparatur beschreiben</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Reparaturbonus erstellen</h3>
               <p className="text-gray-600">
-                Wählen Sie die Kategorie und beschreiben Sie, was repariert werden soll
+                Melden Sie sich hier an und Generieren Sie ihren Reparaturbonus
               </p>
             </div>
 
@@ -333,9 +310,9 @@ export default function Home() {
               <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-2xl font-bold text-green-600">2</span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Werkstatt auswählen</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Reparatur beschreiben</h3>
               <p className="text-gray-600">
-                Lassen Sie sich passende Werkstätten in Ihrer Nähe anzeigen und bringen ihren Gegenstand in die ausgewählte Werkstatt
+                Wählen Sie die Kategorie und beschreiben Sie, was repariert werden soll
               </p>
             </div>
             
@@ -343,9 +320,9 @@ export default function Home() {
               <div className="mx-auto w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-2xl font-bold text-yellow-600">3</span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Reparaturbonus erstellen</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Werkstatt auswählen</h3>
               <p className="text-gray-600">
-                Melden Sie sich hier an und Generieren Sie ihren Reparaturbonus
+                Lassen Sie sich passende Werkstätten in Ihrer Nähe anzeigen und bringen ihren Gegenstand in die ausgewählte Werkstatt
               </p>
             </div>
           </div>
@@ -477,7 +454,7 @@ export default function Home() {
                         <CheckCircleIcon className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-white font-medium mb-1">Kunden erhalten</h4>
+                        <h4 className="text-white font-medium mb-1">Kund*innen erhalten</h4>
                         <p className="text-slate-300 text-sm">Sofort sichtbar für Reparatur-Suchende</p>
                       </div>
                     </div>
