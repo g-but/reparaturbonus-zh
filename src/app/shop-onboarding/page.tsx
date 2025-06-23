@@ -302,24 +302,24 @@ export default function ShopOnboarding() {
                     { number: 3, name: 'Spezialisierung', id: 'spezialisierung' },
                     { number: 4, name: 'Bestätigung', id: 'bestaetigung' }
                   ].map((step) => (
-                    <button
-                      key={step.name}
-                      onClick={() => setCurrentStep(step.number)}
-                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                        step.number === currentStep
-                          ? 'bg-indigo-100 text-indigo-700 shadow-sm'
-                          : 'hover:bg-gray-100 text-gray-700'
-                      }`}
-                    >
-                      <div
-                        className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-                          isStepCompleted(step.number)
-                            ? 'bg-green-100 text-green-700'
-                            : step.number === currentStep
-                            ? 'bg-indigo-600 text-white'
-                            : 'bg-gray-200 text-gray-600'
+                                          <button
+                        key={step.name}
+                        onClick={() => setCurrentStep(step.number)}
+                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                          step.number === currentStep
+                            ? 'bg-indigo-100 text-indigo-700 shadow-sm'
+                            : 'hover:bg-gray-100 text-gray-700'
                         }`}
                       >
+                                              <div
+                          className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
+                            isStepCompleted(step.number)
+                              ? 'bg-green-100 text-green-700'
+                              : step.number === currentStep
+                              ? 'bg-indigo-600 text-white'
+                              : 'bg-gray-200 text-gray-600'
+                          }`}
+                        >
                         {isStepCompleted(step.number) ? (
                           <CheckCircleIcon className="h-5 w-5" />
                         ) : (
