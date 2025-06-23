@@ -10,6 +10,9 @@ import {
   ExclamationTriangleIcon
 } from '@heroicons/react/24/outline'
 import PageHeader from '@/components/ui/PageHeader'
+import FormInput from '@/components/forms/FormInput'
+import FormSelect from '@/components/forms/FormSelect'
+import FormTextarea from '@/components/forms/FormTextarea'
 
 interface ShopFormData {
   name: string
@@ -22,8 +25,7 @@ interface ShopFormData {
   website: string
   category: string
   contactPerson: string
-  businessLicense: string
-  insurance: string
+  legalForm: string
   specializations: string[]
 }
 
@@ -40,7 +42,7 @@ const categories = [
     label: 'Kleidung', 
     icon: '👕',
     description: 'Schneiderei, Änderungen, Reparaturen',
-    examples: ['Reißverschluss', 'Saum kürzen', 'Löcher flicken', 'Knöpfe annähen']
+    examples: ['Reissverschluss', 'Saum kürzen', 'Löcher flicken', 'Knöpfe annähen']
   },
   { 
     value: 'SHOES', 
@@ -68,7 +70,7 @@ const specializationGroups = {
   ],
   'CLOTHING': [
     'Schneiderei',
-    'Reißverschluss Reparatur',
+    'Reissverschluss Reparatur',
     'Änderungen',
     'Löcher flicken',
     'Knöpfe annähen'
@@ -81,6 +83,18 @@ const specializationGroups = {
     'Schuhpflege'
   ]
 }
+
+const legalFormOptions = [
+  { value: 'Einzelunternehmen', label: 'Einzelunternehmen' },
+  { value: 'GmbH', label: 'GmbH' },
+  { value: 'Einfache Gesellschaft', label: 'Einfache Gesellschaft' },
+  { value: 'Aktiengesellschaft', label: 'Aktiengesellschaft (AG)' },
+  { value: 'Verein', label: 'Verein' },
+  { value: 'Genossenschaft', label: 'Genossenschaft' },
+  { value: 'Kollektivgesellschaft', label: 'Kollektivgesellschaft' },
+  { value: 'Kommanditgesellschaft', label: 'Kommanditgesellschaft' },
+  { value: 'Kommanditaktiengesellschaft', label: 'Kommanditaktiengesellschaft' }
+]
 
 export default function ShopOnboarding() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -97,10 +111,34 @@ export default function ShopOnboarding() {
     website: '',
     category: '',
     contactPerson: '',
-    businessLicense: '',
-    insurance: '',
+    legalForm: '',
     specializations: []
   })
+
+  // Check if step requirements are fulfilled
+  const isStepCompleted = (stepNumber: number) => {
+    switch (stepNumber) {
+      case 1:
+        // Only mandatory fields: Werkstatt Name and Hauptkategorie
+        return formData.name.trim() !== '' && formData.category !== ''
+      case 2:
+        // No mandatory fields in contact step
+        return true
+      case 3:
+        // No mandatory fields in services step
+        return true
+      case 4:
+        // Confirmation step is always accessible
+        return true
+      default:
+        return false
+    }
+  }
+
+  const canNavigateToStep = (stepNumber: number) => {
+    // Allow navigation to all steps so users can preview what's coming
+    return true
+  }
 
   const handleInputChange = (field: keyof ShopFormData, value: string | string[]) => {
     setFormData(prev => ({
@@ -185,32 +223,72 @@ export default function ShopOnboarding() {
           subtitle="Werden Sie Teil des Reparatur-Netzwerks und helfen Sie dabei, Ressourcen zu schonen"
         />
 
-        {/* Progress Bar */}
+        {/* Step Navigation */}
         <div className="mb-8">
-          <div className="flex items-center justify-between">
-            {[1, 2, 3, 4].map((step) => (
-              <div key={step} className="flex items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                  step <= currentStep 
-                    ? 'bg-indigo-600 text-white' 
-                    : 'bg-gray-200 text-gray-600'
-                }`}>
-                  {step}
-                </div>
-                {step < 4 && (
-                  <div className={`w-24 h-1 mx-2 ${
-                    step < currentStep ? 'bg-indigo-600' : 'bg-gray-200'
-                  }`} />
-                )}
+          <nav aria-label="Progress">
+            {/* Mobile Progress Bar */}
+            <div className="block sm:hidden mb-4">
+              <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
+                <span>Schritt {currentStep} von 4</span>
+                <span>{Math.round((currentStep / 4) * 100)}%</span>
               </div>
-            ))}
-          </div>
-          <div className="flex justify-between mt-2 text-sm text-gray-600">
-            <span>Grunddaten</span>
-            <span>Kontakt</span>
-            <span>Services</span>
-            <span>Bestätigung</span>
-          </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${(currentStep / 4) * 100}%` }}
+                />
+              </div>
+              <div className="mt-2 text-center">
+                <span className="text-sm font-medium text-gray-900">
+                  {currentStep === 1 && 'Grunddaten'}
+                  {currentStep === 2 && 'Kontakt'}
+                  {currentStep === 3 && 'Spezialisierung'}
+                  {currentStep === 4 && 'Bestätigung'}
+                </span>
+              </div>
+            </div>
+
+            {/* Desktop Step Navigation */}
+            <div className="hidden sm:block">
+              <div className="flex justify-center">
+                <div className="flex space-x-8">
+                  {[
+                    { number: 1, name: 'Grunddaten', id: 'grunddaten' },
+                    { number: 2, name: 'Kontakt', id: 'kontakt' },
+                    { number: 3, name: 'Spezialisierung', id: 'spezialisierung' },
+                    { number: 4, name: 'Bestätigung', id: 'bestaetigung' }
+                  ].map((step) => (
+                                          <button
+                        key={step.name}
+                        onClick={() => setCurrentStep(step.number)}
+                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                          step.number === currentStep
+                            ? 'bg-indigo-100 text-indigo-700 shadow-sm'
+                            : 'hover:bg-gray-100 text-gray-700'
+                        }`}
+                      >
+                                              <div
+                          className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
+                            isStepCompleted(step.number) && step.number < currentStep
+                              ? 'bg-green-100 text-green-700'
+                              : step.number === currentStep
+                              ? 'bg-indigo-600 text-white'
+                              : 'bg-gray-200 text-gray-600'
+                          }`}
+                        >
+                        {isStepCompleted(step.number) && step.number < currentStep ? (
+                          <CheckCircleIcon className="h-5 w-5" />
+                        ) : (
+                          step.number
+                        )}
+                      </div>
+                      <span className="font-medium">{step.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </nav>
         </div>
 
         <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 lg:p-8">
@@ -220,18 +298,13 @@ export default function ShopOnboarding() {
               <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Grundinformationen</h2>
               
               <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Werkstatt Name *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
-                    placeholder="z.B. Revamp-IT"
-                  />
-                </div>
+                <FormInput
+                  label="Werkstatt Name"
+                  value={formData.name}
+                  onChange={(value) => handleInputChange('name', value)}
+                  placeholder="z.B. Revamp-IT"
+                  required
+                />
 
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-4">
@@ -275,45 +348,30 @@ export default function ShopOnboarding() {
                     </div>
                   )}
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Beschreibung *
-                </label>
-                <textarea
+                <FormTextarea
+                  label="Beschreibung"
                   value={formData.description}
-                  onChange={(e) => handleInputChange('description', e.target.value)}
-                  rows={4}
-                  className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
+                  onChange={(value) => handleInputChange('description', value)}
                   placeholder="Beschreiben Sie Ihre Werkstatt und Ihre Spezialisierung..."
+                  required
                 />
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Ansprechperson *
-                  </label>
-                  <input
-                    type="text"
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormInput
+                    label="Ansprechperson"
                     value={formData.contactPerson}
-                    onChange={(e) => handleInputChange('contactPerson', e.target.value)}
-                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
+                    onChange={(value) => handleInputChange('contactPerson', value)}
                     placeholder="Ihr Name"
+                    required
                   />
-                </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Gewerbeberechtigung
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.businessLicense}
-                    onChange={(e) => handleInputChange('businessLicense', e.target.value)}
-                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
-                    placeholder="Nummer der Gewerbeberechtigung"
+                  <FormSelect
+                    label="Rechtsform"
+                    value={formData.legalForm}
+                    onChange={(value) => handleInputChange('legalForm', value)}
+                    options={legalFormOptions}
+                    placeholder="Bitte wählen Sie eine Rechtsform"
                   />
                 </div>
               </div>
@@ -326,90 +384,64 @@ export default function ShopOnboarding() {
               <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Kontaktdaten</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <PhoneIcon className="h-4 w-4 inline mr-1" />
-                    Telefon *
-                  </label>
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
-                    placeholder="+41 44 123 45 67"
-                  />
-                </div>
+                <FormInput
+                  label="Telefon"
+                  value={formData.phone}
+                  onChange={(value) => handleInputChange('phone', value)}
+                  type="tel"
+                  placeholder="+41 44 123 45 67"
+                  icon={<PhoneIcon className="h-4 w-4" />}
+                  required
+                />
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <EnvelopeIcon className="h-4 w-4 inline mr-1" />
-                    E-Mail *
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
-                    placeholder="info@ihre-werkstatt.ch"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <GlobeAltIcon className="h-4 w-4 inline mr-1" />
-                  Website
-                </label>
-                <input
-                  type="url"
-                  value={formData.website}
-                  onChange={(e) => handleInputChange('website', e.target.value)}
-                  className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
-                  placeholder="https://ihre-werkstatt.ch"
+                <FormInput
+                  label="E-Mail"
+                  value={formData.email}
+                  onChange={(value) => handleInputChange('email', value)}
+                  type="email"
+                  placeholder="info@ihre-werkstatt.ch"
+                  icon={<EnvelopeIcon className="h-4 w-4" />}
+                  required
                 />
               </div>
+
+              <FormInput
+                label="Website"
+                value={formData.website}
+                onChange={(value) => handleInputChange('website', value)}
+                type="url"
+                placeholder="https://ihre-werkstatt.ch"
+                icon={<GlobeAltIcon className="h-4 w-4" />}
+              />
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <MapPinIcon className="h-4 w-4 inline mr-1" />
-                    Adresse *
-                  </label>
-                  <input
-                    type="text"
+                  <FormInput
+                    label="Adresse"
                     value={formData.address}
-                    onChange={(e) => handleInputChange('address', e.target.value)}
-                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
+                    onChange={(value) => handleInputChange('address', value)}
                     placeholder="Bahnhofstrasse 45"
+                    icon={<MapPinIcon className="h-4 w-4" />}
+                    required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    PLZ *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.postalCode}
-                    onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                    className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
-                    placeholder="8001"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Stadt *
-                </label>
-                <input
-                  type="text"
-                  value={formData.city}
-                  onChange={(e) => handleInputChange('city', e.target.value)}
-                  className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
-                  placeholder="Zürich"
+                <FormInput
+                  label="PLZ"
+                  value={formData.postalCode}
+                  onChange={(value) => handleInputChange('postalCode', value)}
+                  placeholder="8001"
+                  required
                 />
               </div>
+
+              <FormInput
+                label="Stadt"
+                value={formData.city}
+                onChange={(value) => handleInputChange('city', value)}
+                placeholder="Zürich"
+                required
+              />
             </div>
           )}
 
@@ -450,7 +482,7 @@ export default function ShopOnboarding() {
                           type="text"
                           id="custom-service"
                           placeholder="z.B. Spezialservice, den Sie anbieten..."
-                          className="flex-1 px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none text-sm"
+                          className="flex-1 px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none text-sm placeholder-gray-500 sm:placeholder-gray-400"
                           onKeyPress={(e) => {
                             if (e.key === 'Enter') {
                               e.preventDefault()
@@ -477,7 +509,7 @@ export default function ShopOnboarding() {
                           Hinzufügen
                         </button>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">Fügen Sie spezielle Services hinzu, die Sie anbieten</p>
+                      <p className="text-xs text-gray-600 sm:text-gray-500 mt-1">Fügen Sie spezielle Services hinzu, die Sie anbieten</p>
                     </div>
                   </div>
                 ) : (
@@ -488,18 +520,7 @@ export default function ShopOnboarding() {
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Versicherung
-                </label>
-                <input
-                  type="text"
-                  value={formData.insurance}
-                  onChange={(e) => handleInputChange('insurance', e.target.value)}
-                  className="w-full px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
-                  placeholder="Haftpflichtversicherung Details"
-                />
-              </div>
+
             </div>
           )}
 
@@ -520,6 +541,9 @@ export default function ShopOnboarding() {
                   </div>
                   <div>
                     <span className="font-medium">Ansprechperson:</span> {formData.contactPerson}
+                  </div>
+                  <div>
+                    <span className="font-medium">Rechtsform:</span> {formData.legalForm}
                   </div>
                   <div>
                     <span className="font-medium">E-Mail:</span> {formData.email}
@@ -572,11 +596,11 @@ export default function ShopOnboarding() {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
+          <div className="flex justify-between pt-6 border-t border-gray-200">
             <button
               onClick={prevStep}
               disabled={currentStep === 1}
-              className="px-4 py-3 sm:px-6 sm:py-2 border-2 border-gray-400 md:border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Zurück
             </button>
@@ -584,7 +608,7 @@ export default function ShopOnboarding() {
             {currentStep < 4 ? (
               <button
                 onClick={nextStep}
-                className="px-4 py-3 sm:px-6 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700"
               >
                 Weiter
               </button>
@@ -592,9 +616,9 @@ export default function ShopOnboarding() {
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="px-4 py-3 sm:px-6 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-6 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Wird gesendet...' : 'Antrag senden'}
+                {isSubmitting ? 'Wird gesendet...' : 'Antrag einreichen'}
               </button>
             )}
           </div>

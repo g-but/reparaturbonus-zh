@@ -11,8 +11,12 @@ export async function POST(request: NextRequest) {
       postalCode,
       phone,
       email,
+      website,
       category,
-      contactPerson
+      contactPerson,
+      legalForm,
+      insurance,
+      specializations
     } = body
 
     // Validate required fields
@@ -31,12 +35,31 @@ export async function POST(request: NextRequest) {
       contactPerson,
       email,
       phone,
-      city
+      city,
+      legalForm,
+      specializations: specializations?.length || 0
     })
 
     // Simulate saving the application
     // In production, you would save to a shop_applications table
-    // await prisma.shopApplication.create({ ... })
+    // await prisma.shopApplication.create({
+    //   data: {
+    //     name,
+    //     description,
+    //     address,
+    //     city,
+    //     postalCode,
+    //     phone,
+    //     email,
+    //     website,
+    //     category,
+    //     contactPerson,
+    //     legalForm,
+    //     insurance,
+    //     specializations: specializations?.join(',') || '',
+    //     status: 'PENDING'
+    //   }
+    // })
 
     return NextResponse.json(
       { 
