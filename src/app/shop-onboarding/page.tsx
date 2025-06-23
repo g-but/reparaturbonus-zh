@@ -119,11 +119,18 @@ export default function ShopOnboarding() {
   const isStepCompleted = (stepNumber: number) => {
     switch (stepNumber) {
       case 1:
-        // Only mandatory fields: Werkstatt Name and Hauptkategorie
-        return formData.name.trim() !== '' && formData.category !== ''
+        // Mandatory fields: Werkstatt Name, Hauptkategorie, Beschreibung, Ansprechperson
+        return formData.name.trim() !== '' && 
+               formData.category !== '' && 
+               formData.description.trim() !== '' && 
+               formData.contactPerson.trim() !== ''
       case 2:
-        // No mandatory fields in contact step
-        return true
+        // Mandatory fields: Telefon, E-Mail, Adresse, PLZ, Stadt
+        return formData.phone.trim() !== '' && 
+               formData.email.trim() !== '' && 
+               formData.address.trim() !== '' && 
+               formData.postalCode.trim() !== '' && 
+               formData.city.trim() !== ''
       case 3:
         // No mandatory fields in services step
         return true
@@ -135,10 +142,19 @@ export default function ShopOnboarding() {
     }
   }
 
-  const canNavigateToStep = (stepNumber: number) => {
-    // Allow navigation to all steps so users can preview what's coming
-    return true
+  // Check if all mandatory fields are filled for form submission
+  const areAllMandatoryFieldsFilled = () => {
+    return formData.name.trim() !== '' && 
+           formData.category !== '' && 
+           formData.description.trim() !== '' && 
+           formData.contactPerson.trim() !== '' && 
+           formData.phone.trim() !== '' && 
+           formData.email.trim() !== '' && 
+           formData.address.trim() !== '' && 
+           formData.postalCode.trim() !== '' && 
+           formData.city.trim() !== ''
   }
+
 
   const handleInputChange = (field: keyof ShopFormData, value: string | string[]) => {
     setFormData(prev => ({
@@ -269,14 +285,14 @@ export default function ShopOnboarding() {
                       >
                                               <div
                           className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-                            isStepCompleted(step.number) && step.number < currentStep
+                            isStepCompleted(step.number)
                               ? 'bg-green-100 text-green-700'
                               : step.number === currentStep
                               ? 'bg-indigo-600 text-white'
                               : 'bg-gray-200 text-gray-600'
                           }`}
                         >
-                        {isStepCompleted(step.number) && step.number < currentStep ? (
+                        {isStepCompleted(step.number) ? (
                           <CheckCircleIcon className="h-5 w-5" />
                         ) : (
                           step.number
@@ -615,7 +631,7 @@ export default function ShopOnboarding() {
             ) : (
               <button
                 onClick={handleSubmit}
-                disabled={isSubmitting}
+                disabled={isSubmitting || !areAllMandatoryFieldsFilled()}
                 className="px-6 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Wird gesendet...' : 'Antrag einreichen'}
