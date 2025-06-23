@@ -1,4 +1,4 @@
-import { Shop } from '@/types/shop'
+import { Shop, Review } from '@/types/shop'
 
 // Andreas's ElektronikRep + clean demo shops
 export const DEMO_SHOPS: Record<string, Shop> = {
@@ -15,7 +15,7 @@ export const DEMO_SHOPS: Record<string, Shop> = {
     website: 'https://elektronikrep.shop',
     category: 'ELECTRONICS',
     isActive: true,
-    specializations: ['Smartphone-Reparatur', 'Laptop-Service', 'Tablet-Reparatur', 'Datenrettung', 'Displaytausch', 'Akku-Wechsel'],
+    specializations: ['Smartphone-Reparatur', 'Laptop-Wartung', 'Tablet-Reparatur', 'Datenrettung', 'Displaytausch', 'Akku-Wechsel'],
     openingHours: {
       'Montag': '08:00 - 19:00',
       'Dienstag': '08:00 - 19:00',

@@ -399,7 +399,7 @@ export default function ShopsPage() {
                   <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Suchen Sie nach Werkstätten, Services oder Standorten..."
+                    placeholder="Suchen Sie nach Werkstätten, Leistungen oder Standorten..."
                     className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}

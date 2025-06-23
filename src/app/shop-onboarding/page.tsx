@@ -63,7 +63,7 @@ const specializationGroups = {
     'Wasserschaden',
     'Datenrettung',
     'Software Installation',
-    'Haushaltsgeräte Service',
+    'Haushaltsgeräte Wartung',
     'Kaffeemaschine Reparatur',
     'Mixer Reparatur',
     'Toaster Reparatur'
@@ -96,6 +96,14 @@ const legalFormOptions = [
   { value: 'Kommanditaktiengesellschaft', label: 'Kommanditaktiengesellschaft' }
 ]
 
+// Define mandatory fields for each step - DRY principle
+const MANDATORY_FIELDS = {
+  1: ['name', 'category', 'description', 'contactPerson'],
+  2: ['phone', 'email', 'address', 'postalCode', 'city'],
+  3: [], // No mandatory fields for specializations
+  4: []  // Confirmation step
+} as const
+
 export default function ShopOnboarding() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -115,46 +123,25 @@ export default function ShopOnboarding() {
     specializations: []
   })
 
-  // Check if step requirements are fulfilled
-  const isStepCompleted = (stepNumber: number) => {
-    switch (stepNumber) {
-      case 1:
-        // Mandatory fields: Werkstatt Name, Hauptkategorie, Beschreibung, Ansprechperson
-        return formData.name.trim() !== '' && 
-               formData.category !== '' && 
-               formData.description.trim() !== '' && 
-               formData.contactPerson.trim() !== ''
-      case 2:
-        // Mandatory fields: Telefon, E-Mail, Adresse, PLZ, Stadt
-        return formData.phone.trim() !== '' && 
-               formData.email.trim() !== '' && 
-               formData.address.trim() !== '' && 
-               formData.postalCode.trim() !== '' && 
-               formData.city.trim() !== ''
-      case 3:
-        // No mandatory fields in services step
-        return true
-      case 4:
-        // Confirmation step is always accessible
-        return true
-      default:
-        return false
-    }
+  // Improved validation using DRY principle
+  const isStepCompleted = (stepNumber: number): boolean => {
+    const requiredFields = MANDATORY_FIELDS[stepNumber as keyof typeof MANDATORY_FIELDS]
+    if (!requiredFields || requiredFields.length === 0) return true
+    
+    return requiredFields.every(field => {
+      const value = formData[field as keyof ShopFormData]
+      return typeof value === 'string' ? value.trim() !== '' : Boolean(value)
+    })
   }
 
   // Check if all mandatory fields are filled for form submission
-  const areAllMandatoryFieldsFilled = () => {
-    return formData.name.trim() !== '' && 
-           formData.category !== '' && 
-           formData.description.trim() !== '' && 
-           formData.contactPerson.trim() !== '' && 
-           formData.phone.trim() !== '' && 
-           formData.email.trim() !== '' && 
-           formData.address.trim() !== '' && 
-           formData.postalCode.trim() !== '' && 
-           formData.city.trim() !== ''
+  const areAllMandatoryFieldsFilled = (): boolean => {
+    const allMandatoryFields = [...MANDATORY_FIELDS[1], ...MANDATORY_FIELDS[2]]
+    return allMandatoryFields.every(field => {
+      const value = formData[field as keyof ShopFormData]
+      return typeof value === 'string' ? value.trim() !== '' : Boolean(value)
+    })
   }
-
 
   const handleInputChange = (field: keyof ShopFormData, value: string | string[]) => {
     setFormData(prev => ({
@@ -173,6 +160,10 @@ export default function ShopOnboarding() {
   }
 
   const handleSubmit = async () => {
+    if (!areAllMandatoryFieldsFilled()) {
+      return // Don't submit if mandatory fields are missing
+    }
+
     setIsSubmitting(true)
     
     try {
@@ -274,24 +265,24 @@ export default function ShopOnboarding() {
                     { number: 3, name: 'Spezialisierung', id: 'spezialisierung' },
                     { number: 4, name: 'Bestätigung', id: 'bestaetigung' }
                   ].map((step) => (
-                                          <button
-                        key={step.name}
-                        onClick={() => setCurrentStep(step.number)}
-                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                          step.number === currentStep
-                            ? 'bg-indigo-100 text-indigo-700 shadow-sm'
-                            : 'hover:bg-gray-100 text-gray-700'
+                    <button
+                      key={step.name}
+                      onClick={() => setCurrentStep(step.number)}
+                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                        step.number === currentStep
+                          ? 'bg-indigo-100 text-indigo-700 shadow-sm'
+                          : 'hover:bg-gray-100 text-gray-700'
+                      }`}
+                    >
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
+                          isStepCompleted(step.number)
+                            ? 'bg-green-100 text-green-700'
+                            : step.number === currentStep
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-gray-200 text-gray-600'
                         }`}
                       >
-                                              <div
-                          className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-                            isStepCompleted(step.number)
-                              ? 'bg-green-100 text-green-700'
-                              : step.number === currentStep
-                              ? 'bg-indigo-600 text-white'
-                              : 'bg-gray-200 text-gray-600'
-                          }`}
-                        >
                         {isStepCompleted(step.number) ? (
                           <CheckCircleIcon className="h-5 w-5" />
                         ) : (
@@ -352,7 +343,7 @@ export default function ShopOnboarding() {
                   {formData.category && (
                     <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                       <h4 className="font-medium text-blue-900 mb-2">
-                        Typische Services in dieser Kategorie:
+                        Typische Leistungen in dieser Kategorie:
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {categories.find(c => c.value === formData.category)?.examples.map((example, index) => (
@@ -461,7 +452,7 @@ export default function ShopOnboarding() {
             </div>
           )}
 
-          {/* Step 3: Services & Specializations */}
+          {/* Step 3: Leistungen & Specializations */}
           {currentStep === 3 && (
             <div className="space-y-6">
               <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Leistungen & Spezialisierungen</h2>
@@ -474,7 +465,7 @@ export default function ShopOnboarding() {
                   <div className="space-y-4">
                     <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
                       <h4 className="font-medium text-indigo-900 mb-3">
-                        Passende Services für {categories.find(c => c.value === formData.category)?.label}:
+                        Passende Leistungen für {categories.find(c => c.value === formData.category)?.label}:
                       </h4>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {specializationGroups[formData.category as keyof typeof specializationGroups].map((spec: string) => (
@@ -492,12 +483,12 @@ export default function ShopOnboarding() {
                     </div>
                     
                     <div className="p-4 border-2 border-dashed border-gray-200 rounded-lg">
-                      <h4 className="font-medium text-gray-700 mb-3">Weitere Services hinzufügen:</h4>
+                      <h4 className="font-medium text-gray-700 mb-3">Weitere Leistungen hinzufügen:</h4>
                       <div className="flex gap-2">
                         <input
                           type="text"
                           id="custom-service"
-                          placeholder="z.B. Spezialservice, den Sie anbieten..."
+                          placeholder="z.B. Spezialleistung, die Sie anbieten..."
                           className="flex-1 px-3 py-3 bg-white border-2 border-gray-400 md:border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none text-sm placeholder-gray-500 sm:placeholder-gray-400"
                           onKeyPress={(e) => {
                             if (e.key === 'Enter') {
@@ -525,7 +516,7 @@ export default function ShopOnboarding() {
                           Hinzufügen
                         </button>
                       </div>
-                      <p className="text-xs text-gray-600 sm:text-gray-500 mt-1">Fügen Sie spezielle Services hinzu, die Sie anbieten</p>
+                      <p className="text-xs text-gray-600 sm:text-gray-500 mt-1">Fügen Sie spezielle Leistungen hinzu, die Sie anbieten</p>
                     </div>
                   </div>
                 ) : (
@@ -535,8 +526,6 @@ export default function ShopOnboarding() {
                   </div>
                 )}
               </div>
-
-
             </div>
           )}
 

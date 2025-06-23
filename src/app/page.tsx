@@ -436,7 +436,7 @@ export default function Home() {
                         <span className="text-white font-bold text-sm">2</span>
                       </div>
                       <div>
-                        <h4 className="text-white font-medium mb-1">Services auswählen</h4>
+                        <h4 className="text-white font-medium mb-1">Leistungen auswählen</h4>
                         <p className="text-slate-300 text-sm">Spezialisierungen und Dienstleistungen angeben</p>
                       </div>
                     </div>
