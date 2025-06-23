@@ -123,15 +123,52 @@ export default function ShopOnboarding() {
     specializations: []
   })
 
-  // Improved validation using DRY principle
-  const isStepCompleted = (stepNumber: number): boolean => {
-    const requiredFields = MANDATORY_FIELDS[stepNumber as keyof typeof MANDATORY_FIELDS]
-    if (!requiredFields || requiredFields.length === 0) return true
-    
-    return requiredFields.every(field => {
+  // Helper function to check Step 1 completion without recursion
+  const isStep1Complete = (): boolean => {
+    const step1Fields = MANDATORY_FIELDS[1]
+    return step1Fields.every(field => {
       const value = formData[field as keyof ShopFormData]
       return typeof value === 'string' ? value.trim() !== '' : Boolean(value)
     })
+  }
+
+  // Improved validation with proper step dependencies
+  const isStepCompleted = (stepNumber: number): boolean => {
+    const requiredFields = MANDATORY_FIELDS[stepNumber as keyof typeof MANDATORY_FIELDS]
+    
+    switch (stepNumber) {
+      case 1:
+        // Step 1: Independent - check mandatory fields
+        return requiredFields.every(field => {
+          const value = formData[field as keyof ShopFormData]
+          return typeof value === 'string' ? value.trim() !== '' : Boolean(value)
+        })
+      
+      case 2:
+        // Step 2: Independent - check mandatory fields
+        return requiredFields.every(field => {
+          const value = formData[field as keyof ShopFormData]
+          return typeof value === 'string' ? value.trim() !== '' : Boolean(value)
+        })
+      
+      case 3:
+        // Step 3: Dependent on Step 1 completion (needs category to be meaningful)
+        // Only shows complete if Step 1 is fully completed first
+        if (!isStep1Complete()) return false
+        
+        // Step 3 is complete when Step 1 is complete and category is available
+        // This step is optional - users don't need to select specializations
+        // It's considered complete as long as the category exists (from Step 1)
+        return formData.category.trim() !== ''
+      
+      case 4:
+        // Step 4: Never shows as complete - it's the submission/action step
+        // Once you submit successfully, you're redirected away from the form
+        return false
+      
+      default:
+        return false
+    }
   }
 
   // Check if all mandatory fields are filled for form submission
