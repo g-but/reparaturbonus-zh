@@ -15,6 +15,7 @@ export default function SignUp() {
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [redirectingToShop, setRedirectingToShop] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const router = useRouter()
@@ -142,15 +143,31 @@ export default function SignUp() {
                   </button>
                   <button
                     type="button"
+                    disabled={redirectingToShop}
                     className={`flex items-center justify-center p-3 rounded-lg border-2 transition-all ${
-                      formData.userType === 'workshop'
+                      redirectingToShop
                         ? 'border-green-500 bg-green-50 text-green-700'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
-                    onClick={() => setFormData({ ...formData, userType: 'workshop' })}
+                    onClick={async () => {
+                      setRedirectingToShop(true)
+                      // Small delay for better UX
+                      setTimeout(() => {
+                        router.push('/shop-onboarding')
+                      }, 300)
+                    }}
                   >
-                    <BuildingStorefrontIcon className="w-5 h-5 mr-2" />
-                    <span className="text-sm font-medium">Reparaturbetrieb</span>
+                    {redirectingToShop ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-green-600 mr-2"></div>
+                        <span className="text-sm font-medium">Weiterleitung...</span>
+                      </>
+                    ) : (
+                      <>
+                        <BuildingStorefrontIcon className="w-5 h-5 mr-2" />
+                        <span className="text-sm font-medium">Reparaturbetrieb</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>

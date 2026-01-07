@@ -98,8 +98,8 @@ const legalFormOptions = [
 
 // Define mandatory fields for each step - DRY principle
 const MANDATORY_FIELDS = {
-  1: ['name', 'category', 'description', 'contactPerson'],
-  2: ['phone', 'email', 'address', 'postalCode', 'city'],
+  1: ['name', 'category'],
+  2: ['email', 'address', 'postalCode', 'city'],
   3: [], // No mandatory fields for specializations
   4: []  // Confirmation step
 } as const
@@ -398,7 +398,6 @@ export default function ShopOnboarding() {
                   value={formData.description}
                   onChange={(value) => handleInputChange('description', value)}
                   placeholder="Beschreiben Sie Ihre Werkstatt und Ihre Spezialisierung..."
-                  required
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -407,7 +406,6 @@ export default function ShopOnboarding() {
                     value={formData.contactPerson}
                     onChange={(value) => handleInputChange('contactPerson', value)}
                     placeholder="Ihr Name"
-                    required
                   />
 
                   <FormSelect
@@ -435,7 +433,6 @@ export default function ShopOnboarding() {
                   type="tel"
                   placeholder="+41 44 123 45 67"
                   icon={<PhoneIcon className="h-4 w-4" />}
-                  required
                 />
 
                 <FormInput
