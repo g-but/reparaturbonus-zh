@@ -1,26 +1,72 @@
 ---
-description: "Testing guidelines - run tests, verify changes"
+description: "Testing guidelines for Reparaturbonus Zürich"
 alwaysApply: false
 globs: ["**/*.test.*", "**/*.spec.*", "**/tests/**"]
 ---
 
 # Testing Rules
 
-## Before Committing
-
-1. Run the test suite
-2. Verify all tests pass
-3. Add tests for new functionality
-
-## Test Quality
-
-- Test behavior, not implementation
-- Keep tests focused and readable
-- Use descriptive test names
-
-## Commands
+## Test Commands
 
 ```bash
-npm test           # Run all tests
-npm run test:watch # Watch mode
+# Build check (catches type errors)
+npm run build
+
+# Lint
+npm run lint
+
+# Database
+npm run db:studio    # Visual database inspection
 ```
+
+## Manual Testing Checklist
+
+### Authentication
+- [ ] Sign up creates new user
+- [ ] Sign in works with valid credentials
+- [ ] Invalid credentials show error
+- [ ] Admin can access /admin
+- [ ] Customer cannot access /admin
+
+### Shop Directory
+- [ ] Shops list loads correctly
+- [ ] Category filter works
+- [ ] Search works
+- [ ] Shop details display correctly
+
+### Bonus Codes
+- [ ] Code generation creates valid codes
+- [ ] Amount calculation correct (20%, max 50)
+- [ ] Codes display in customer dashboard
+- [ ] Expired codes handled correctly
+
+### Admin Dashboard
+- [ ] User management works
+- [ ] Shop approval works
+- [ ] Statistics display correctly
+
+## Test Users
+
+After seeding (`npm run db:seed`):
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@reparaturbonus.ch | admin123 |
+| Customer | customer@example.com | customer123 |
+
+## Database Testing
+
+```bash
+# Open Prisma Studio to inspect data
+npm run db:studio
+
+# Reset and reseed
+npm run db:push && npm run db:seed
+```
+
+## Before Committing
+
+1. `npm run lint` - No lint errors
+2. `npm run build` - Build succeeds
+3. Test auth flows manually
+4. Verify Prisma schema changes are migrated

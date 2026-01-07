@@ -1,42 +1,83 @@
 ---
-description: "Core code quality rules - DRY, SSOT, minimal changes"
+description: "Reparaturbonus code quality - Next.js 15 + Prisma patterns"
 alwaysApply: true
 ---
 
 # Code Quality Rules
 
+## Architecture
+
+Next.js 15 App Router with Prisma:
+- `src/app/` - Pages and API routes
+- `src/components/` - React components
+- `src/lib/` - Utilities, Prisma client
+- `prisma/` - Database schema
+
 ## Core Principles
 
-### DRY (Don't Repeat Yourself)
-- Extract repeated logic into reusable functions
-- Check for existing utilities before creating new ones
-- Use constants for repeated values
+### 1. DRY - Don't Repeat Yourself
+- Centralize Prisma client in `src/lib/prisma.ts`
+- Reuse auth checks with middleware
+- Extract bonus calculations to utilities
 
-### SSOT (Single Source of Truth)
-- Data should be defined in one place only
-- Configuration lives in dedicated files
-- Types are defined once and imported
+### 2. SSOT - Single Source of Truth
+| Data | Location |
+|------|----------|
+| Database Schema | `prisma/schema.prisma` |
+| Types | Generated from Prisma |
+| Auth Config | `src/lib/auth.ts` |
+| Constants | `src/lib/constants.ts` |
 
-### Minimal Changes
-- Only modify what's necessary for the task
-- Don't refactor unrelated code
-- Don't add features not requested
+### 3. Security First
+- Always validate input
+- Check authentication on protected routes
+- Never expose passwords in responses
 
-## Before Making Changes
+## TypeScript Standards
 
-1. Search for existing similar functionality
-2. Check if a utility already exists
-3. Verify you're not duplicating code
+```typescript
+// Use Prisma-generated types
+import { Shop, BonusCode, User } from '@prisma/client';
 
-## Code Patterns
+// Explicit return types
+async function getActiveShops(): Promise<Shop[]> {
+  return prisma.shop.findMany({
+    where: { isVerified: true },
+  });
+}
+```
 
-- Use existing patterns found in the codebase
-- Follow the file's existing style
-- Don't introduce new patterns without reason
+## API Route Pattern
 
-## What NOT to Do
+```typescript
+import { getServerSession } from 'next-auth';
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
-- Don't add comments explaining obvious code
-- Don't create abstractions for one-time use
-- Don't add "nice to have" features
-- Don't refactor working code unnecessarily
+export async function POST(request: Request) {
+  // 1. Auth check
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  // 2. Validate input
+  const body = await request.json();
+  if (!body.name) {
+    return NextResponse.json({ error: 'Name required' }, { status: 400 });
+  }
+
+  // 3. Database operation
+  const result = await prisma.shop.create({ data: body });
+  
+  // 4. Return response
+  return NextResponse.json(result, { status: 201 });
+}
+```
+
+## Don't
+
+- Skip auth checks on protected routes
+- Use raw SQL (use Prisma)
+- Hardcode CHF amounts
+- Return passwords in responses
