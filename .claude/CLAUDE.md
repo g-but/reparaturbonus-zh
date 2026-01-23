@@ -1,5 +1,9 @@
 # Reparaturbonus Zürich
 
+@~/.claude/CLAUDE.md
+
+---
+
 ## Overview
 
 Reparaturbonus Zürich is a **Next.js 15** application connecting customers with certified repair shops and providing bonus codes for sustainable repair choices. Built with Prisma and PostgreSQL.
@@ -127,4 +131,4 @@ npm run db:studio     # Open Prisma Studio
 
 ---
 
-**See `AGENTS.md` for universal agent guidelines.**
+**Last Updated**: 2026-01-23
